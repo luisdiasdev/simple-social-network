@@ -1,0 +1,1 @@
+alter table circle_user_profile add column avatar_color varchar(10) not null default '#000000';

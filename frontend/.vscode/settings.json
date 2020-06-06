@@ -1,0 +1,8 @@
+{
+    "files.exclude": {
+        "**/node_modules": true
+    },
+    "eslint.enable": true,
+    "editor.tabSize": 2
+    
+}
