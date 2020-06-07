@@ -81,5 +81,12 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.1"
   },
-  "proxy": "http://localhost:8080"
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:8080",
+      "pathRewrite": {
+        "^/api": "/"
+      }
+    }
+  }
 }
