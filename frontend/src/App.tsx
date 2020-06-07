@@ -8,6 +8,7 @@ import Router from './router';
 import theme from './theme';
 import store, { persistor } from './store';
 
+
 const queryConfig = {
   refetchAllOnWindowFocus: false,
 };
