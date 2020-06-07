@@ -41,13 +41,26 @@ spring:
 security:
   encoding-strength: 256
 
+# TODO: Remove this when AWS S3 fully implemented
 app:
   storage:
-    path: /opt/storage/the-circle/
+    path: /opt/storage/food-social/
 
   security:
     jwt:
-      secret: z$C&F)J@NcRfUjXn2r5u8x/A?D*G-KaPdSgVkYp3s6v9y$B&E)H+MbQeThWmZq4t
+      secret: ${JWT_SECRET:KFEiqnPK8B+GW3zo93H0LGrdAdzejEs8I6KawgpG/VP6rqOEaooGTKdHqgG3hirXI/i7PKmzxKGd1GAgL6AqcqloCqEINPgJDRVakpoCY7Dpqm0dnru0vz2JnRpwBs/1N4Ghljhxx06j/twy6BmJUwqv8Mi+YY4jVWOZTyLIaPvOtDeyiTTkIspJhhLD+cLxSkxKhhD6w5gXQ0qiZXwpzkxr4qBHNDBxkpCOTw==}
       signing-algorithm: HS512
       token-issuer: food-social
       token-audience: food-social-network
+
+cloud:
+  aws:
+    stack:
+      auto: false
+    credentials:
+      instanceProfile: false
+      accessKey: ${AWS_ACCESS_KEY}
+      secretKey: ${AWS_SECRET_KEY}
+    region:
+      auto: false
+      static: ${AWS_REGION}
