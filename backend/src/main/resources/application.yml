@@ -7,10 +7,10 @@ spring:
       max-request-size: 10MB
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/circledb
+    url: ${JDBC_DATABASE_URL}
     driverClassName: org.postgresql.Driver
-    username: postgres
-    password: thecirclepostgres
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
 
   jpa:
     show-sql: true
