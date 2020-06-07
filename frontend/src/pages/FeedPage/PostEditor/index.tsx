@@ -45,14 +45,15 @@ export default function PostEditor({ profile }: PostEditorProps) {
   const editorRef = useRef<ReactQuill>(null);
 
   const onSubmitPost = async () => {
-    console.log(editorRef?.current?.unprivilegedEditor?.getContents());
-    console.log(editorState);
-    console.log(images);
+    // console.log(editorRef?.current?.unprivilegedEditor?.getContents());
+    // console.log(editorState);
+    // console.log(images);
 
     const data = await savePost({
       message: editorRef?.current?.unprivilegedEditor?.getContents(),
       pictures: images.map((i) => i.remoteUuid) as string[],
     });
+    // eslint-disable-next-line no-console
     console.log(data);
   };
 

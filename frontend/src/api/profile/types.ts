@@ -14,5 +14,5 @@ export type UserProfileModifyRequest = {
 }
 
 export type UserProfilePictureResponse = {
-  contentUri: string;
+  contentUri: string | undefined;
 }

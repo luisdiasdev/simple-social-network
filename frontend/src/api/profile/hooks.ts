@@ -16,13 +16,23 @@ export const useUpdateProfile = () => useMutation(
 export const useUpdateProfilePicture = () => useMutation(
   (form: File) => updateProfilePicture(form),
   {
-    onSuccess: (data: UserProfilePictureResponse) => queryCache.setQueryData('profile', (old: UserProfilePictureResponse) => ({ ...old, imageUri: data.contentUri })),
+    onSuccess: (data: UserProfilePictureResponse) => queryCache.setQueryData(
+      'profile',
+      (old: UserProfilePictureResponse | undefined) => (
+        old
+          ? ({ ...old, contentUri: data.contentUri })
+          : data
+      ),
+    ),
   },
 );
 
 export const useDeleteProfilePicture = () => useMutation(
   () => deleteProfilePicture(),
   {
-    onSuccess: () => queryCache.setQueryData('profile', (old: UserProfilePictureResponse) => ({ ...old, imageUri: undefined })),
+    onSuccess: () => queryCache.setQueryData(
+      'profile',
+      () => ({ contentUri: null }),
+    ),
   },
 );

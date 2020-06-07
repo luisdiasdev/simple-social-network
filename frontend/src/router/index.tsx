@@ -20,7 +20,7 @@ const renderWithTemplate = (component: React.ComponentType<any>) => () => {
 
 const Router = () => {
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
-  console.log('is Auth: ', isAuthenticated);
+
   return (
     <BrowserRouter>
       <Switch>

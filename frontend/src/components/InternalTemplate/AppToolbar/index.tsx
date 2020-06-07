@@ -1,6 +1,15 @@
 import React, { PropsWithChildren, useState } from 'react';
 import {
-  useScrollTrigger, makeStyles, AppBar, Hidden, IconButton, Typography, Toolbar, Menu, MenuItem, Link,
+  useScrollTrigger,
+  makeStyles,
+  AppBar,
+  Hidden,
+  IconButton,
+  Typography,
+  Toolbar,
+  Menu,
+  MenuItem,
+  Link,
 } from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom';
