@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @OpenAPIDefinition(
         info = @Info(
@@ -26,6 +27,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         in = SecuritySchemeIn.COOKIE,
         paramName = "signature")
 @SpringBootApplication
+@EnableJpaAuditing
 public class Application {
 
     public static void main(String[] args) {
