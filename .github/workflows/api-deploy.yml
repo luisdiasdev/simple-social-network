@@ -1,11 +1,11 @@
-name: "Front Deploy to Heroku"
+name: "API Deploy to Heroku"
 
 on:
   push:
     branches:
       - master
     paths:
-      - 'frontend/**'
+      - 'backend/**'
       - '.github/workflows/**'
 
 jobs:
@@ -17,6 +17,6 @@ jobs:
     - uses: akhileshns/heroku-deploy@v3.0.4
       with:
         heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-        heroku_app_name: 'agateownz-social-network-app'
+        heroku_app_name: 'agateownz-social-network-api'
         heroku_email: ${{ secrets.HEROKU_EMAIL }}
-        appdir: 'frontend'
+        appdir: 'backend'
