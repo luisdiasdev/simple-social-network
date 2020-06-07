@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Builder
-@Table(name = "circle_hashtag")
+@Table(name = "fs_hashtag")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id", callSuper = false)

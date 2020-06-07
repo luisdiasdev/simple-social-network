@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Builder
-@Table(name = "circle_post_hashtag")
+@Table(name = "fs_post_hashtag")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true, of = "id")

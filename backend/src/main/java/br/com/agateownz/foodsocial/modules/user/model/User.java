@@ -16,7 +16,7 @@ import java.util.Set;
 @Data
 @Entity
 @Builder
-@Table(name = "circle_user", uniqueConstraints = {
+@Table(name = "fs_user", uniqueConstraints = {
         @UniqueConstraint(name = "uk_username_email", columnNames = {"username", "email"}),
         @UniqueConstraint(name = "uk_email", columnNames = {"email"})
 })
@@ -31,18 +31,18 @@ import java.util.Set;
                 " cup.display_name as displayName," +
                 " cup.avatar_color as avatarColor," +
                 " cup.user_profile_image_id as imageUri" +
-                " from circle_user cu" +
-                " inner join circle_user_profile cup on cu.id = cup.user_id" +
+                " from fs_user cu" +
+                " inner join fs_user_profile cup on cu.id = cup.user_id" +
                 " where cu.id in" +
-                " (select f1.follower_id from circle_user_follower f1" +
-                " inner join circle_user_profile p on f1.follower_id = p.user_id" +
-                " inner join circle_user cu1 on f1.follower_id = cu1.id" +
+                " (select f1.follower_id from fs_user_follower f1" +
+                " inner join fs_user_profile p on f1.follower_id = p.user_id" +
+                " inner join fs_user cu1 on f1.follower_id = cu1.id" +
                 " where f1.user_id = :userId" +
                 " and (p.display_name like :search or cu1.username like :search)" +
                 " union all" +
-                " select f2.following_id from circle_user_following f2" +
-                " inner join circle_user_profile p on f2.following_id = p.user_id" +
-                " inner join circle_user cu2 on f2.following_id = cu2.id" +
+                " select f2.following_id from fs_user_following f2" +
+                " inner join fs_user_profile p on f2.following_id = p.user_id" +
+                " inner join fs_user cu2 on f2.following_id = cu2.id" +
                 " where f2.user_id = :userId " +
                 " and (p.display_name like :search or cu2.username like :search))" +
                 " order by cu.username asc",

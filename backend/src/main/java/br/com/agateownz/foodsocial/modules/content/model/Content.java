@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Builder
-@Table(name = "circle_content")
+@Table(name = "fs_content")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)

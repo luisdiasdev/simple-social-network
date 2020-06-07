@@ -11,9 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "circle-api",
+                title = "food-social-api",
                 version = "0.0.1",
-                description = "The API for The Circle Social Network",
+                description = "The API for the Food Social Network",
                 license = @License(name = "MIT", url = "https://opensource.org/licenses/MIT")))
 @SecurityScheme(
         name = "cookieAuth",

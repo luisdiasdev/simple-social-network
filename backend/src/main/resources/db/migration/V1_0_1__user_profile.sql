@@ -1,4 +1,4 @@
-create table circle_user_profile (
+create table fs_user_profile (
     user_id bigint not null,
     created_at timestamp not null,
     updated_at timestamp not null,
@@ -7,4 +7,4 @@ create table circle_user_profile (
     website varchar(100),
     primary key (user_id));
 
-alter table circle_user_profile add constraint fk_user_profile foreign key (user_id) references circle_user;
+alter table fs_user_profile add constraint fk_user_profile foreign key (user_id) references fs_user;

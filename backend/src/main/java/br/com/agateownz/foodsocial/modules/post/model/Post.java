@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 @Entity
 @Builder
-@Table(name = "circle_post")
+@Table(name = "fs_post")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id", callSuper = false)

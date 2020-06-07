@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Builder
-@Table(name = "circle_user_following")
+@Table(name = "fs_user_following")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true, of = "id")

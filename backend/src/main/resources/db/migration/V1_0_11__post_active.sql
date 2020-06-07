@@ -1,1 +1,1 @@
-alter table circle_post add column active boolean not null default true;
+alter table fs_post add column active boolean not null default true;

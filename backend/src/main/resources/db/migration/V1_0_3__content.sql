@@ -1,4 +1,4 @@
-create table circle_content (
+create table fs_content (
     uuid varchar(255) not null,
     created_at timestamp not null,
     updated_at timestamp not null,
@@ -8,4 +8,4 @@ create table circle_content (
     user_id bigint not null,
     primary key (uuid));
 
-alter table circle_content add constraint fk_user_content foreign key (user_id) references circle_user;
+alter table fs_content add constraint fk_user_content foreign key (user_id) references fs_user;

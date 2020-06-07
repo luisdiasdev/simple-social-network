@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Data
 @Entity
-@Table(name = "circle_user_profile")
+@Table(name = "fs_user_profile")
 @EqualsAndHashCode(callSuper = true)
 public class UserProfile extends EntityWithTimestamp {
 
