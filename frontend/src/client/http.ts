@@ -2,7 +2,7 @@ import axios from 'axios';
 import store from 'store';
 import { logout } from 'store/ducks/auth';
 
-const BASE_URL = '/api';
+const BASE_URL = 'https://agateownz-social-network-api.herokuapp.com/';
 
 export const publicApi = axios.create({
   baseURL: BASE_URL,
