@@ -46,12 +46,15 @@ export default function Form() {
     try {
       await AuthApi.login(form);
       const payloadCookie = Cookies.get('payload');
+      console.log('payloadCookie: ', payloadCookie);
+
       if (payloadCookie) {
         const jwtPayload = jwtDecode<{ userId: number }>(payloadCookie);
         dispatch(authenticationSuccess({
           userId: jwtPayload.userId,
           username: form.username,
         }));
+        console.log('jwtPayload: ', jwtPayload);
       }
     } catch (error) {
       enqueueSnackbar('Failed to complete your request', {
