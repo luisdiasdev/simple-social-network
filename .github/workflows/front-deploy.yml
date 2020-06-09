@@ -25,6 +25,7 @@ jobs:
 
   build:
     name: Deploy
+    needs: lint
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
