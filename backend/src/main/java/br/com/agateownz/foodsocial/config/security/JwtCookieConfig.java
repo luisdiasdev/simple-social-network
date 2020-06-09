@@ -25,4 +25,7 @@ public class JwtCookieConfig {
 
     @NotBlank
     private String signatureCookieName = DEFAULT_SIGNATURE_COOKIE_NAME;
+
+    @NotBlank
+    private String domain;
 }

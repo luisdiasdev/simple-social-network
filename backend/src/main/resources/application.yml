@@ -52,6 +52,8 @@ app:
       signing-algorithm: HS512
       token-issuer: food-social
       token-audience: food-social-network
+      cookie:
+        domain: ${JWT_COOKIE_DOMAIN}
 
 cloud:
   aws:

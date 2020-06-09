@@ -22,7 +22,7 @@ public class JwtCookieGenerator {
         signatureCookie.setHttpOnly(true);
         signatureCookie.setSecure(isSecure);
         signatureCookie.setPath("/");
-        signatureCookie.setDomain("localhost");
+        signatureCookie.setDomain(jwtCookieConfig.getDomain());
 
         var payloadCookie = new Cookie(
                 jwtCookieConfig.getPayloadCookieName(),
@@ -30,7 +30,7 @@ public class JwtCookieGenerator {
         payloadCookie.setMaxAge((int) jwtCookieConfig.getPayloadCookieDuration().toMillis());
         payloadCookie.setHttpOnly(false);
         payloadCookie.setSecure(isSecure);
-        payloadCookie.setDomain("localhost");
+        payloadCookie.setDomain(jwtCookieConfig.getDomain());
         payloadCookie.setPath("/");
 
         return Set.of(signatureCookie, payloadCookie);
