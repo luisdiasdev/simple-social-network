@@ -1,13 +1,12 @@
 package br.com.agateownz.foodsocial.modules.post.dto.response;
 
+import java.time.LocalDateTime;
+import java.util.Map;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
-import java.util.Map;
-import java.util.Set;
 
 @Data
 @Builder

@@ -4,13 +4,12 @@ import br.com.agateownz.foodsocial.modules.post.exceptions.PostValidationExcepti
 import br.com.agateownz.foodsocial.modules.shared.dto.Message;
 import br.com.agateownz.foodsocial.modules.shared.exception.EntityNotFoundException;
 import br.com.agateownz.foodsocial.modules.shared.exception.UnauthorizedException;
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @ControllerAdvice

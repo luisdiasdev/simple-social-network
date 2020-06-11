@@ -1,17 +1,16 @@
 package br.com.agateownz.foodsocial.modules.post.repository;
 
 import br.com.agateownz.foodsocial.modules.post.model.Post;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface PostRepository extends PagingAndSortingRepository<Post, Long>,
-        QuerydslPredicateExecutor<Post>, PostRepositoryCustom {
+    QuerydslPredicateExecutor<Post>, PostRepositoryCustom {
 
     Optional<Post> findByIdAndActiveTrue(Long id);
 

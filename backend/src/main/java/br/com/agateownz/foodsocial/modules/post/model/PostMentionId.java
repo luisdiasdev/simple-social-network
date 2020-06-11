@@ -1,12 +1,11 @@
 package br.com.agateownz.foodsocial.modules.post.model;
 
 import br.com.agateownz.foodsocial.modules.user.model.User;
+import java.io.Serializable;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
 @Embeddable

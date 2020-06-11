@@ -3,14 +3,13 @@ package br.com.agateownz.foodsocial.modules.content.controller;
 import br.com.agateownz.foodsocial.modules.content.service.ContentService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 import static br.com.agateownz.foodsocial.config.swagger.SwaggerConstants.COOKIE_AUTH;
 

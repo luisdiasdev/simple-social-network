@@ -1,10 +1,9 @@
 package br.com.agateownz.foodsocial.modules.hashtag.model;
 
 import br.com.agateownz.foodsocial.modules.shared.model.EntityWithTimestamp;
-import lombok.*;
-
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import javax.persistence.*;
+import lombok.*;
 
 @Data
 @Entity

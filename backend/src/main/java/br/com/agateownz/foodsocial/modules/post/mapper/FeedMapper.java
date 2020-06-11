@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(config = MapStructConfig.class,
-        uses = {PostMapper.class, UserProfileMapper.class})
+    uses = {PostMapper.class, UserProfileMapper.class})
 public interface FeedMapper {
 
     @Mapping(source = "post", target = "post")

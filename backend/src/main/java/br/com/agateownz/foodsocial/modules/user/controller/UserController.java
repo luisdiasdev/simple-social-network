@@ -7,14 +7,13 @@ import br.com.agateownz.foodsocial.modules.user.dto.response.MentionUserResponse
 import br.com.agateownz.foodsocial.modules.user.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 import static br.com.agateownz.foodsocial.config.swagger.SwaggerConstants.COOKIE_AUTH;
 

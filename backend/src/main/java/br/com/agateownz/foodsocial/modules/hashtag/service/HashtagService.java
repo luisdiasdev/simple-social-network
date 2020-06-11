@@ -4,14 +4,13 @@ import br.com.agateownz.foodsocial.modules.hashtag.dto.response.HashtagResponse;
 import br.com.agateownz.foodsocial.modules.hashtag.mapper.HashtagMapper;
 import br.com.agateownz.foodsocial.modules.hashtag.model.Hashtag;
 import br.com.agateownz.foodsocial.modules.hashtag.repository.HashtagRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class HashtagService {
@@ -24,20 +23,20 @@ public class HashtagService {
     public Set<HashtagResponse> searchHashtags(String search) {
         var searchWithLike = "%".concat(search).concat("%");
         return hashtagRepository.findTop10ByHashtagContainingIgnoreCaseOrderByHashtagAsc(searchWithLike)
-                .parallelStream()
-                .map(hashtagMapper::hashtagToHashtagResponse)
-                .collect(Collectors.toSet());
+            .parallelStream()
+            .map(hashtagMapper::hashtagToHashtagResponse)
+            .collect(Collectors.toSet());
     }
 
     @Transactional
     public Hashtag getOrCreateHashtag(Long id, String value) {
         var cleanValue = cleanSpacedWords(stripHashtagSymbol(value));
         var hashtag = hashtagRepository.findById(id)
-                .map(Hashtag::updateLastUsed)
-                .orElseGet(() -> Hashtag.builder()
-                        .hashtag(cleanValue)
-                        .build()
-                        .updateLastUsed());
+            .map(Hashtag::updateLastUsed)
+            .orElseGet(() -> Hashtag.builder()
+                .hashtag(cleanValue)
+                .build()
+                .updateLastUsed());
         return hashtagRepository.save(hashtag);
     }
 
@@ -53,7 +52,7 @@ public class HashtagService {
             return value;
         }
         return Arrays.stream(value.split("\\s+"))
-                .limit(1)
-                .collect(Collectors.joining());
+            .limit(1)
+            .collect(Collectors.joining());
     }
 }

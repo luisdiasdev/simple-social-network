@@ -17,10 +17,10 @@ public class MentionUserResponse {
     private String imageUri;
 
     public MentionUserResponse(Long id,
-                               String value,
-                               String displayName,
-                               String avatarColor,
-                               String imageUri) {
+        String value,
+        String displayName,
+        String avatarColor,
+        String imageUri) {
         this.id = id;
         this.value = value;
         this.displayName = displayName;

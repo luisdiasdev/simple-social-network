@@ -1,11 +1,10 @@
 package br.com.agateownz.foodsocial.modules.shared.dto;
 
 import br.com.agateownz.foodsocial.config.security.JwtUserToken;
+import java.util.Collection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
-
-import java.util.Collection;
 
 @Data
 @AllArgsConstructor

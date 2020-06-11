@@ -1,14 +1,13 @@
 package br.com.agateownz.foodsocial.config.security;
 
 import io.jsonwebtoken.Jwts;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 public class JwtTokenParser {
@@ -18,8 +17,8 @@ public class JwtTokenParser {
 
     public Optional<JwtUserToken> parseJwtToken(String token) {
         var parsedToken = Jwts.parser()
-                .setSigningKey(jwtConfig.getSecret().getBytes())
-                .parseClaimsJws(token);
+            .setSigningKey(jwtConfig.getSecret().getBytes())
+            .parseClaimsJws(token);
 
         var username = parsedToken.getBody().getSubject();
 
@@ -29,9 +28,9 @@ public class JwtTokenParser {
 
         @SuppressWarnings("unchecked")
         var roles = ((List<String>) parsedToken.getBody().get("rol", List.class))
-                .stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+            .stream()
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
 
         var userId = parsedToken.getBody().get("userId", Long.class);
 

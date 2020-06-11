@@ -2,10 +2,9 @@ package br.com.agateownz.foodsocial.modules.post.model;
 
 import br.com.agateownz.foodsocial.modules.shared.model.EntityWithLogicExclusion;
 import br.com.agateownz.foodsocial.modules.user.model.User;
-import lombok.*;
-
-import javax.persistence.*;
 import java.util.Set;
+import javax.persistence.*;
+import lombok.*;
 
 @Data
 @Entity
@@ -29,26 +28,26 @@ public class Post extends EntityWithLogicExclusion {
     private User user;
 
     @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            mappedBy = "id.post",
-            fetch = FetchType.LAZY
+        cascade = CascadeType.ALL,
+        orphanRemoval = true,
+        mappedBy = "id.post",
+        fetch = FetchType.LAZY
     )
     private Set<PostMention> mentions;
 
     @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            mappedBy = "id.post",
-            fetch = FetchType.LAZY
+        cascade = CascadeType.ALL,
+        orphanRemoval = true,
+        mappedBy = "id.post",
+        fetch = FetchType.LAZY
     )
     private Set<PostHashtag> hashtags;
 
     @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            mappedBy = "id.post",
-            fetch = FetchType.LAZY
+        cascade = CascadeType.ALL,
+        orphanRemoval = true,
+        mappedBy = "id.post",
+        fetch = FetchType.LAZY
     )
     private Set<PostContent> pictures;
 

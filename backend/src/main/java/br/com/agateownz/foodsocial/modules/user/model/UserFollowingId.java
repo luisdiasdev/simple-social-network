@@ -1,11 +1,10 @@
 package br.com.agateownz.foodsocial.modules.user.model;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
 @Embeddable

@@ -3,13 +3,12 @@ package br.com.agateownz.foodsocial.modules.user.model;
 import br.com.agateownz.foodsocial.modules.content.model.Content;
 import br.com.agateownz.foodsocial.modules.shared.model.EntityWithTimestamp;
 import br.com.agateownz.foodsocial.modules.user.dto.request.UserProfileModifyRequest;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.util.StringUtils;
-
-import javax.persistence.*;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -42,8 +41,8 @@ public class UserProfile extends EntityWithTimestamp {
     private String avatarColor;
 
     public static UserProfile of(UserProfileModifyRequest request,
-                                 User user,
-                                 String avatarColor) {
+        User user,
+        String avatarColor) {
         var profile = new UserProfile();
         profile.setUser(user);
         profile.setAvatarColor(avatarColor);
@@ -53,11 +52,11 @@ public class UserProfile extends EntityWithTimestamp {
 
     private static void populateRequestFields(UserProfile profile, UserProfileModifyRequest request) {
         request.getDisplayName()
-                .ifPresent(profile::setDisplayName);
+            .ifPresent(profile::setDisplayName);
         request.getWebsite()
-                .ifPresent(profile::setWebsite);
+            .ifPresent(profile::setWebsite);
         request.getBio()
-                .ifPresent(profile::setBio);
+            .ifPresent(profile::setBio);
     }
 
     public UserProfile update(UserProfileModifyRequest request) {
@@ -70,9 +69,9 @@ public class UserProfile extends EntityWithTimestamp {
             return null;
         }
         return Arrays.stream(this.displayName.split(" "))
-                .map(part -> part.substring(0, 1))
-                .limit(2)
-                .collect(Collectors.joining(""))
-                .toUpperCase();
+            .map(part -> part.substring(0, 1))
+            .limit(2)
+            .collect(Collectors.joining(""))
+            .toUpperCase();
     }
 }

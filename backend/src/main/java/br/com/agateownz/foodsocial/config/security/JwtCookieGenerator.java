@@ -1,10 +1,9 @@
 package br.com.agateownz.foodsocial.config.security;
 
+import java.util.Set;
+import javax.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.http.Cookie;
-import java.util.Set;
 
 @Component
 public class JwtCookieGenerator {
@@ -25,8 +24,8 @@ public class JwtCookieGenerator {
         signatureCookie.setDomain(jwtCookieConfig.getDomain());
 
         var payloadCookie = new Cookie(
-                jwtCookieConfig.getPayloadCookieName(),
-                String.join(".", jwtParts[0], jwtParts[1]));
+            jwtCookieConfig.getPayloadCookieName(),
+            String.join(".", jwtParts[0], jwtParts[1]));
         payloadCookie.setMaxAge((int) jwtCookieConfig.getPayloadCookieDuration().toMillis());
         payloadCookie.setHttpOnly(false);
         payloadCookie.setSecure(isSecure);

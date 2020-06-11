@@ -1,15 +1,14 @@
 package br.com.agateownz.foodsocial.modules.shared.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
-import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class MaterialColorGeneratorService {
@@ -32,9 +31,9 @@ public class MaterialColorGeneratorService {
         var type = objectMapper.getTypeFactory().constructMapType(HashMap.class, keyType, colorType);
         var result = (Map<String, Map<String, String>>) objectMapper.readValue(is, type);
         materialColors = result.values()
-                .stream()
-                .flatMap(innerMap -> innerMap.values().stream())
-                .collect(Collectors.toList());
+            .stream()
+            .flatMap(innerMap -> innerMap.values().stream())
+            .collect(Collectors.toList());
     }
 
     public String getRandomMaterialColor() {

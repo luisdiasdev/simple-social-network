@@ -6,10 +6,9 @@ import br.com.agateownz.foodsocial.config.mapper.StringToMapConverter;
 import br.com.agateownz.foodsocial.modules.post.dto.response.PostResponse;
 import br.com.agateownz.foodsocial.modules.post.model.Post;
 import br.com.agateownz.foodsocial.modules.post.model.PostContent;
+import java.util.Set;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
-import java.util.Set;
 
 @Mapper(config = MapStructConfig.class, uses = StringToMapConverter.class)
 public abstract class PostMapper {

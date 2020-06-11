@@ -8,13 +8,12 @@ import br.com.agateownz.foodsocial.modules.shared.service.AuthenticationService;
 import br.com.agateownz.foodsocial.modules.shared.service.StorageService;
 import br.com.agateownz.foodsocial.modules.shared.service.UuidService;
 import br.com.agateownz.foodsocial.modules.user.model.User;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
-import java.util.Optional;
 
 import static br.com.agateownz.foodsocial.modules.content.exceptions.ContentExceptions.CONTENT_NOT_FOUND;
 
@@ -36,38 +35,38 @@ public class ContentService {
         content.setContentDiscriminator(discriminator);
 
         Optional.ofNullable(file.getContentType())
-                .ifPresent(content::setContentType);
+            .ifPresent(content::setContentType);
 
         storageService.store(content.getUuid(), discriminator.name(), file)
-                .ifPresent(content::setPath);
+            .ifPresent(content::setPath);
 
         authenticationService.getAuthenticatedUser()
-                .map(AuthenticatedUser::getUserId)
-                .ifPresent(userId -> content.setUser(new User(userId)));
+            .map(AuthenticatedUser::getUserId)
+            .ifPresent(userId -> content.setUser(new User(userId)));
 
         return contentRepository.save(content);
     }
 
     public Content findContentBelongingToUser(ContentDiscriminator discriminator,
-                                              String uuid,
-                                              Long userId) {
+        String uuid,
+        Long userId) {
         return contentRepository
-                .findByContentDiscriminatorAndUuidAndUserId(discriminator, uuid, userId)
-                .orElseThrow(() -> CONTENT_NOT_FOUND);
+            .findByContentDiscriminatorAndUuidAndUserId(discriminator, uuid, userId)
+            .orElseThrow(() -> CONTENT_NOT_FOUND);
     }
 
     public FileSystemResource getFileByUuid(String uuid) {
         var content = contentRepository.findById(uuid)
-                .filter(Content::isPublic)
-                .orElseThrow(() -> CONTENT_NOT_FOUND);
+            .filter(Content::isPublic)
+            .orElseThrow(() -> CONTENT_NOT_FOUND);
 
         return getSystemFileFromContent(content);
     }
 
     public FileSystemResource getInternalContentByUuid(String uuid) {
         var content = contentRepository.findById(uuid)
-                .filter(Content::isPrivate)
-                .orElseThrow(() -> CONTENT_NOT_FOUND);
+            .filter(Content::isPrivate)
+            .orElseThrow(() -> CONTENT_NOT_FOUND);
 
         return getSystemFileFromContent(content);
     }
@@ -80,8 +79,8 @@ public class ContentService {
 
     public boolean isContentsOwnedByCurrentUser(List<String> uuids) {
         return contentRepository.findNumberOfContentsOwnedByUser(
-                uuids,
-                authenticationService.getAuthenticatedUserId()) == uuids.size();
+            uuids,
+            authenticationService.getAuthenticatedUserId()) == uuids.size();
     }
 
     public List<Content> getContentsByUuidBelongingToUser(List<String> uuids, Long userId) {
@@ -90,7 +89,7 @@ public class ContentService {
 
     private FileSystemResource getSystemFileFromContent(Content content) {
         return storageService.find(content.getPath())
-                .map(FileSystemResource::new)
-                .orElseThrow(() -> CONTENT_NOT_FOUND);
+            .map(FileSystemResource::new)
+            .orElseThrow(() -> CONTENT_NOT_FOUND);
     }
 }

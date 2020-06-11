@@ -7,10 +7,9 @@ import br.com.agateownz.foodsocial.modules.user.model.UserFollowingId;
 import br.com.agateownz.foodsocial.modules.user.repository.UserFollowerRepository;
 import br.com.agateownz.foodsocial.modules.user.repository.UserFollowingRepository;
 import br.com.agateownz.foodsocial.modules.user.repository.UserRepository;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 
 import static br.com.agateownz.foodsocial.modules.user.exceptions.UserExceptions.USER_NOT_FOUND;
 
@@ -30,11 +29,11 @@ public class UserFollowerService {
         var targetUser = userRepository.findById(followerId).orElseThrow(() -> USER_NOT_FOUND);
 
         var sourceUserFollowing = UserFollowing.builder()
-                .id(new UserFollowingId(sourceUser, targetUser))
-                .build();
+            .id(new UserFollowingId(sourceUser, targetUser))
+            .build();
         var targetUserFollower = UserFollower.builder()
-                .id(new UserFollowerId(targetUser, sourceUser))
-                .build();
+            .id(new UserFollowerId(targetUser, sourceUser))
+            .build();
         userFollowerRepository.save(targetUserFollower);
         userFollowingRepository.save(sourceUserFollowing);
     }

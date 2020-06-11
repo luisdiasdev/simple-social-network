@@ -3,9 +3,8 @@ package br.com.agateownz.foodsocial.modules.content.model;
 import br.com.agateownz.foodsocial.modules.content.enums.ContentDiscriminator;
 import br.com.agateownz.foodsocial.modules.shared.model.EntityWithTimestamp;
 import br.com.agateownz.foodsocial.modules.user.model.User;
-import lombok.*;
-
 import javax.persistence.*;
+import lombok.*;
 
 @Data
 @Entity
@@ -47,7 +46,7 @@ public class Content extends EntityWithTimestamp {
 
     public String getContentUri() {
         return isPublic()
-                ? CONTENT_RESOURCE.concat(uuid)
-                : PRIVATE_CONTENT_RESOURCE.concat(uuid);
+            ? CONTENT_RESOURCE.concat(uuid)
+            : PRIVATE_CONTENT_RESOURCE.concat(uuid);
     }
 }

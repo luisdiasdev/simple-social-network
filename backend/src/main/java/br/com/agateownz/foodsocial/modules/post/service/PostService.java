@@ -15,18 +15,17 @@ import br.com.agateownz.foodsocial.modules.shared.service.AuthenticationService;
 import br.com.agateownz.foodsocial.modules.user.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static br.com.agateownz.foodsocial.modules.post.exceptions.PostExceptions.POST_NOT_FOUND;
 
@@ -52,7 +51,7 @@ public class PostService {
 
     public PostResponse getById(Long id) {
         var post = postRepository.findByIdAndActiveTrue(id)
-                .orElseThrow(() -> POST_NOT_FOUND);
+            .orElseThrow(() -> POST_NOT_FOUND);
         return postMapper.postToPostResponse(post);
     }
 
@@ -73,48 +72,48 @@ public class PostService {
 
     private void createUserMentions(Post post, List<Mention> mentions) {
         var mentionUserIds = mentions.stream()
-                .filter(Mention::isUserMention)
-                .map(Mention::getId)
-                .collect(Collectors.toList());
+            .filter(Mention::isUserMention)
+            .map(Mention::getId)
+            .collect(Collectors.toList());
         var postMentions = userService.findByIds(mentionUserIds)
-                .stream()
-                .map(user ->
-                        PostMention.builder()
-                                .id(new PostMentionId(post, user))
-                                .build())
-                .collect(Collectors.toSet());
+            .stream()
+            .map(user ->
+                PostMention.builder()
+                    .id(new PostMentionId(post, user))
+                    .build())
+            .collect(Collectors.toSet());
         post.setMentions(postMentions);
     }
 
     private void createHashtagMentions(Post post, List<Mention> mentions) {
         var hashtagMentions = mentions.stream()
-                .filter(Mention::isHashtagMention)
-                .map(mention ->
-                        PostHashtag.builder()
-                                .id(new PostHashtagId(
-                                        post,
-                                        hashtagService.getOrCreateHashtag(mention.getId(), mention.getName())))
-                                .build())
-                .collect(Collectors.toSet());
+            .filter(Mention::isHashtagMention)
+            .map(mention ->
+                PostHashtag.builder()
+                    .id(new PostHashtagId(
+                        post,
+                        hashtagService.getOrCreateHashtag(mention.getId(), mention.getName())))
+                    .build())
+            .collect(Collectors.toSet());
         post.setHashtags(hashtagMentions);
     }
 
     private void createPostPictures(Post post, List<String> picturesUuids, Long userId) {
         if (!CollectionUtils.isEmpty(picturesUuids)) {
             var postPictures = contentService.getContentsByUuidBelongingToUser(picturesUuids, userId)
-                    .stream()
-                    .map(content ->
-                            PostContent.builder()
-                                    .id(new PostContentId(post, content))
-                                    .build())
-                    .collect(Collectors.toSet());
+                .stream()
+                .map(content ->
+                    PostContent.builder()
+                        .id(new PostContentId(post, content))
+                        .build())
+                .collect(Collectors.toSet());
             post.setPictures(postPictures);
         }
     }
 
     private void validatePictures(PostCreateRequest request) {
         if (!CollectionUtils.isEmpty(request.getPictures())
-                && !contentService.isContentsOwnedByCurrentUser(request.getPictures())) {
+            && !contentService.isContentsOwnedByCurrentUser(request.getPictures())) {
             throw new PostValidationException("Can only use your own pictures");
         }
     }
@@ -130,7 +129,7 @@ public class PostService {
         var operations = (List<Map>) message.get("ops");
         var hasOpsKey = Objects.nonNull(operations) && operations.size() > 0;
         return hasOpsKey && operations.stream()
-                .anyMatch(m -> Objects.nonNull(m.get("insert")));
+            .anyMatch(m -> Objects.nonNull(m.get("insert")));
     }
 
     private String getMessageAsString(Map message) {
@@ -151,9 +150,9 @@ public class PostService {
         var userId = authenticationService.getAuthenticatedUserId();
 
         var content = contentService.findContentBelongingToUser(
-                ContentDiscriminator.POST_PICTURE,
-                uuid,
-                userId);
+            ContentDiscriminator.POST_PICTURE,
+            uuid,
+            userId);
 
         contentService.delete(content);
     }
@@ -167,7 +166,7 @@ public class PostService {
         var userId = authenticationService.getAuthenticatedUserId();
 
         postRepository.findByIdAndActiveTrueAndUserId(postId, userId)
-                .orElseThrow(() -> POST_NOT_FOUND);
+            .orElseThrow(() -> POST_NOT_FOUND);
 
         postRepository.deletePostByIdAndUserId(postId, userId);
     }

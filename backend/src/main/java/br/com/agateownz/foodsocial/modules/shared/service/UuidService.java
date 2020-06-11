@@ -1,8 +1,7 @@
 package br.com.agateownz.foodsocial.modules.shared.service;
 
-import org.springframework.stereotype.Service;
-
 import java.util.UUID;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UuidService {

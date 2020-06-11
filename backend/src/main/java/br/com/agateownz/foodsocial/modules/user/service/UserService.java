@@ -9,12 +9,11 @@ import br.com.agateownz.foodsocial.modules.user.mapper.UserMapper;
 import br.com.agateownz.foodsocial.modules.user.model.User;
 import br.com.agateownz.foodsocial.modules.user.repository.CustomUserRepository;
 import br.com.agateownz.foodsocial.modules.user.repository.UserRepository;
+import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.util.List;
 
 import static br.com.agateownz.foodsocial.modules.user.exceptions.UserExceptions.USER_NOT_FOUND;
 
@@ -42,8 +41,8 @@ public class UserService {
 
     public DefaultUserResponse findByUsername(String name) {
         return userRepository.findByUsername(name)
-                .map(userMapper::userToDefaultUserResponse)
-                .orElseThrow(() -> USER_NOT_FOUND);
+            .map(userMapper::userToDefaultUserResponse)
+            .orElseThrow(() -> USER_NOT_FOUND);
     }
 
     public User findById(Long id) {
@@ -57,6 +56,6 @@ public class UserService {
     public List<MentionUserResponse> findUsersToMention(String search) {
         var searchWithLike = "%".concat(search).concat("%");
         return customUserRepository.findMentionableUsers(
-                authenticationService.getAuthenticatedUserId(), searchWithLike);
+            authenticationService.getAuthenticatedUserId(), searchWithLike);
     }
 }

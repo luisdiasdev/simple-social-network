@@ -12,11 +12,10 @@ import br.com.agateownz.foodsocial.modules.user.mapper.UserProfileMapper;
 import br.com.agateownz.foodsocial.modules.user.model.User;
 import br.com.agateownz.foodsocial.modules.user.model.UserProfile;
 import br.com.agateownz.foodsocial.modules.user.repository.UserProfileRepository;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.transaction.Transactional;
 
 import static br.com.agateownz.foodsocial.modules.user.exceptions.UserExceptions.USER_NOT_FOUND;
 
@@ -46,11 +45,11 @@ public class UserProfileService {
 
     private UserProfile createOrUpdateUserProfile(UserProfileModifyRequest request, User user) {
         return userProfileRepository.findByUserId(authenticationService.getAuthenticatedUserId())
-                .map(profile -> profile.update(request))
-                .orElseGet(() -> UserProfile.of(
-                        request,
-                        user,
-                        materialColorGeneratorService.getRandomMaterialColor()));
+            .map(profile -> profile.update(request))
+            .orElseGet(() -> UserProfile.of(
+                request,
+                user,
+                materialColorGeneratorService.getRandomMaterialColor()));
     }
 
     public ContentResponse saveProfilePicture(MultipartFile file) {
@@ -64,7 +63,7 @@ public class UserProfileService {
     public void removeProfilePicture() {
         var userId = authenticationService.getAuthenticatedUserId();
         var userProfile = userProfileRepository.findById(userId)
-                .orElseThrow(() -> USER_NOT_FOUND);
+            .orElseThrow(() -> USER_NOT_FOUND);
         userProfileRepository.update(userId, null);
         contentService.delete(userProfile.getImage());
     }
@@ -72,7 +71,7 @@ public class UserProfileService {
     @Transactional
     public UserProfileWithPictureResponse getFromAuthenticatedUser() {
         return userProfileRepository.findByUserId(authenticationService.getAuthenticatedUserId())
-                .map(userProfileMapper::userProfileToUserProfileWithPictureResponse)
-                .orElseGet(UserProfileWithPictureResponse::empty);
+            .map(userProfileMapper::userProfileToUserProfileWithPictureResponse)
+            .orElseGet(UserProfileWithPictureResponse::empty);
     }
 }

@@ -2,17 +2,16 @@ package br.com.agateownz.foodsocial.modules.content.repository;
 
 import br.com.agateownz.foodsocial.modules.content.enums.ContentDiscriminator;
 import br.com.agateownz.foodsocial.modules.content.model.Content;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 
 public interface ContentRepository extends CrudRepository<Content, String> {
 
     Optional<Content> findByContentDiscriminatorAndUuidAndUserId(ContentDiscriminator discriminator,
-                                                                 String uuid,
-                                                                 Long userId);
+        String uuid,
+        Long userId);
 
     List<Content> findByUuidInAndUserId(List<String> uuid, Long userId);
 
