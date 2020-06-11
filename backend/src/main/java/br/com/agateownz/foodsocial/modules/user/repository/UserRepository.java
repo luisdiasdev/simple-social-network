@@ -1,5 +1,6 @@
 package br.com.agateownz.foodsocial.modules.user.repository;
 
+import br.com.agateownz.foodsocial.modules.user.dto.response.MentionUserResponse;
 import br.com.agateownz.foodsocial.modules.user.model.User;
 import java.util.List;
 import java.util.Optional;
@@ -12,4 +13,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     Optional<User> findByUsername(String username);
 
     List<User> findByIdIn(List<Long> ids);
+
+    List<MentionUserResponse> findUsersToMention(Long userId, String search);
 }

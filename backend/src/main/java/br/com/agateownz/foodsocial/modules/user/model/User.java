@@ -23,7 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id", callSuper = false)
 @NamedNativeQuery(
-    name = "UserMentionSearch",
+    name = "User.findUsersToMention",
     query = "select"
         + " cu.id as id,"
         + " cu.username as value,"

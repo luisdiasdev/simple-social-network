@@ -7,7 +7,6 @@ import br.com.agateownz.foodsocial.modules.user.dto.response.DefaultUserResponse
 import br.com.agateownz.foodsocial.modules.user.dto.response.MentionUserResponse;
 import br.com.agateownz.foodsocial.modules.user.mapper.UserMapper;
 import br.com.agateownz.foodsocial.modules.user.model.User;
-import br.com.agateownz.foodsocial.modules.user.repository.CustomUserRepository;
 import br.com.agateownz.foodsocial.modules.user.repository.UserRepository;
 import java.util.List;
 import javax.transaction.Transactional;
@@ -28,8 +27,6 @@ public class UserService {
     private UserMapper userMapper;
     @Autowired
     private AuthenticationService authenticationService;
-    @Autowired
-    private CustomUserRepository customUserRepository;
 
     @Transactional
     public CreateUserResponse save(UserCreateRequest request) {
@@ -55,7 +52,7 @@ public class UserService {
 
     public List<MentionUserResponse> findUsersToMention(String search) {
         var searchWithLike = "%".concat(search).concat("%");
-        return customUserRepository.findMentionableUsers(
+        return userRepository.findUsersToMention(
             authenticationService.getAuthenticatedUserId(), searchWithLike);
     }
 }
