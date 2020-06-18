@@ -26,6 +26,7 @@
     "http-proxy-middleware": "^1.0.4",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
+    "lint-staged": "^10.2.11",
     "localforage": "^1.7.3",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
@@ -80,6 +81,15 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^2.5.1"
+    "eslint-plugin-react-hooks": "^2.5.1",
+    "husky": "^4.2.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --max-warnings=0"
   }
 }
