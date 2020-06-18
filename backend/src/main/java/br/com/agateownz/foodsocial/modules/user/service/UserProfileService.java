@@ -52,11 +52,12 @@ public class UserProfileService {
                 materialColorGeneratorService.getRandomMaterialColor()));
     }
 
+    @Transactional
     public ContentResponse saveProfilePicture(MultipartFile file) {
         var userId = authenticationService.getAuthenticatedUserId();
         var content = contentService.save(ContentDiscriminator.PROFILE_PICTURE, file);
         userProfileRepository.update(userId, content.getUuid());
-        return new ContentResponse(content.getUuid(), content.getContentUri());
+        return new ContentResponse(content.getUuid(), content.getUri());
     }
 
     @Transactional

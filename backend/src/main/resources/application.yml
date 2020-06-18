@@ -45,6 +45,7 @@ security:
 app:
   storage:
     path: /opt/storage/food-social/
+    bucketName: ${STORAGE_BUCKET_NAME}
 
   security:
     jwt:

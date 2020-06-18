@@ -22,6 +22,6 @@ public abstract class PostMapper {
     abstract Set<String> postContentSetToStringList(Set<PostContent> pictures);
 
     String postContentToString(PostContent postContent) {
-        return postContent.getId().getContent().getContentUri();
+        return postContent.getId().getContent().getUri();
     }
 }

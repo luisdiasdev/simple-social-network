@@ -142,7 +142,7 @@ public class PostService {
 
     public ContentResponse savePostPicture(MultipartFile file) {
         var content = contentService.save(ContentDiscriminator.POST_PICTURE, file);
-        return new ContentResponse(content.getUuid(), content.getContentUri());
+        return new ContentResponse(content.getUuid(), content.getUri());
     }
 
     @Transactional

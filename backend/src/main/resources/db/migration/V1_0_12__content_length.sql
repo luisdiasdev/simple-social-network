@@ -1,0 +1,1 @@
+alter table fs_content add column content_length bigint not null;

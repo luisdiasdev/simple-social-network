@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties("app.storage")
 public class StorageConfig {
 
-    @NotBlank
     private String path;
+
+    @NotBlank
+    private String bucketName;
 }

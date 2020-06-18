@@ -12,6 +12,6 @@ public interface UserProfileMapper {
 
     UserProfileResponse userProfileToUserProfileResponse(UserProfile userProfile);
 
-    @Mapping(source = "image.contentUri", target = "imageUri")
+    @Mapping(source = "image.uri", target = "imageUri")
     UserProfileWithPictureResponse userProfileToUserProfileWithPictureResponse(UserProfile userProfile);
 }
