@@ -11,7 +11,7 @@ import ReactQuill from 'react-quill';
 import PhotoUpload from 'components/PhotoUpload';
 import PhotoPreviewUpload from 'components/PhotoPreviewUpload';
 import { useSnackbar } from 'notistack';
-import { savePostPicture, savePost } from 'api/posts/api';
+import { savePostPicture, savePost, deletePostPicture } from 'api/posts/api';
 import { ImageWithPreview } from 'api/posts/types';
 import { MAX_POST_FILES, MAX_FILE_SIZE } from 'constants/upload';
 
@@ -113,6 +113,9 @@ export default function PostEditor({ profile }: PostEditorProps) {
   const deleteImageSelected = (image: ImageWithPreview) => {
     setImages(images.filter((i) => i.preview !== image.preview));
     URL.revokeObjectURL(image.preview);
+    if (image.remoteUuid) {
+      deletePostPicture(image.remoteUuid);
+    }
   };
 
   useEffect(() => {

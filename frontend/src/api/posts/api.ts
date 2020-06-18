@@ -26,6 +26,8 @@ export const savePostPicture = (file: File) => {
   };
 };
 
+export const deletePostPicture = (uuid: string) => publicApi.delete(`${PICTURE_ENDPOINT}/${uuid}`);
+
 export const savePost = (request: PostCreateRequest) => publicApi
   .post<PostResponse>(ENDPOINT, request)
   .then((response) => response.data);
