@@ -1,0 +1,31 @@
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.cloud.aws.autoconfigure.context.ContextInstanceDataAutoConfiguration
+      - org.springframework.cloud.aws.autoconfigure.context.ContextCredentialsAutoConfiguration
+      - org.springframework.cloud.aws.autoconfigure.context.ContextRegionProviderAutoConfiguration
+      - org.springframework.cloud.aws.autoconfigure.context.ContextResourceLoaderAutoConfiguration
+      - org.springframework.cloud.aws.autoconfigure.context.ContextStackAutoConfiguration
+      - org.springframework.cloud.aws.autoconfigure.mail.MailSenderAutoConfiguration
+      - org.springframework.cloud.aws.autoconfigure.cache.ElastiCacheAutoConfiguration
+      - org.springframework.cloud.aws.autoconfigure.messaging.MessagingAutoConfiguration
+      - org.springframework.cloud.aws.autoconfigure.jdbc.AmazonRdsDatabaseAutoConfiguration
+      - org.springframework.cloud.aws.autoconfigure.metrics.CloudWatchExportAutoConfiguration
+
+  datasource:
+    url: jdbc:h2:mem:testDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password: ''
+
+  flyway:
+    enabled: false
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+app:
+  storage:
+    bucketName: test-bucket
+
