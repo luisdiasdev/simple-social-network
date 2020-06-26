@@ -1,5 +1,6 @@
 package br.com.agateownz.foodsocial.modules.shared.service;
 
+import br.com.agateownz.foodsocial.config.ApplicationProfiles;
 import br.com.agateownz.foodsocial.config.security.JwtUserToken;
 import br.com.agateownz.foodsocial.modules.shared.dto.AuthenticatedUser;
 import br.com.agateownz.foodsocial.modules.shared.exception.UnauthorizedException;
@@ -16,7 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-@ActiveProfiles("test")
+@ActiveProfiles(ApplicationProfiles.TEST)
 @SpringBootTest
 class AuthenticationServiceTest {
 

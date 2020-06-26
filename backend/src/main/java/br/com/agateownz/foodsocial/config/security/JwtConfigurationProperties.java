@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Data
 @Configuration
 @ConfigurationProperties("app.security.jwt")
-public class JwtConfig {
+public class JwtConfigurationProperties {
 
     private static final String DEFAULT_TOKEN_TYPE = "JWT";
 

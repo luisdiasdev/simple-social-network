@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class JwtCookieParser {
 
     @Autowired
-    private JwtCookieConfig jwtCookieConfig;
+    private JwtCookieConfigurationProperties jwtCookieConfigurationProperties;
 
     public Optional<String> getTokenFromRequest(HttpServletRequest request) {
         if (ObjectUtils.isEmpty(request.getCookies())) {
@@ -24,8 +24,8 @@ public class JwtCookieParser {
 
         var authCookies = Arrays.stream(request.getCookies())
             .filter(c -> List.of(
-                jwtCookieConfig.getPayloadCookieName(),
-                jwtCookieConfig.getSignatureCookieName()).contains(c.getName()))
+                jwtCookieConfigurationProperties.getPayloadCookieName(),
+                jwtCookieConfigurationProperties.getSignatureCookieName()).contains(c.getName()))
             .collect(Collectors.toList());
 
         if (authCookies.size() != 2) {
@@ -33,11 +33,11 @@ public class JwtCookieParser {
         }
 
         var maybePayload = authCookies.stream()
-            .filter(c -> c.getName().equals(jwtCookieConfig.getPayloadCookieName()))
+            .filter(c -> c.getName().equals(jwtCookieConfigurationProperties.getPayloadCookieName()))
             .findFirst();
 
         var maybeSignature = authCookies.stream()
-            .filter(c -> c.getName().equals(jwtCookieConfig.getSignatureCookieName()))
+            .filter(c -> c.getName().equals(jwtCookieConfigurationProperties.getSignatureCookieName()))
             .findFirst();
 
         var requestToken = Stream.of(maybePayload, maybeSignature)

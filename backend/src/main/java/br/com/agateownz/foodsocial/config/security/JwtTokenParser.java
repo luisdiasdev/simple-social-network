@@ -13,11 +13,11 @@ import org.springframework.util.StringUtils;
 public class JwtTokenParser {
 
     @Autowired
-    private JwtConfig jwtConfig;
+    private JwtConfigurationProperties jwtConfigurationProperties;
 
     public Optional<JwtUserToken> parseJwtToken(String token) {
         var parsedToken = Jwts.parser()
-            .setSigningKey(jwtConfig.getSecret().getBytes())
+            .setSigningKey(jwtConfigurationProperties.getSecret().getBytes())
             .parseClaimsJws(token);
 
         var username = parsedToken.getBody().getSubject();

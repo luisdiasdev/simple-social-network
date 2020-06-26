@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class JwtCookieGenerator {
 
     @Autowired
-    private JwtCookieConfig jwtCookieConfig;
+    private JwtCookieConfigurationProperties jwtCookieConfigurationProperties;
 
     public Set<Cookie> generateCookies(String accessToken, boolean isSecure) {
         var jwtParts = accessToken.split("\\.");
@@ -17,19 +17,19 @@ public class JwtCookieGenerator {
             return Set.of();
         }
 
-        var signatureCookie = new Cookie(jwtCookieConfig.getSignatureCookieName(), jwtParts[2]);
+        var signatureCookie = new Cookie(jwtCookieConfigurationProperties.getSignatureCookieName(), jwtParts[2]);
         signatureCookie.setHttpOnly(true);
         signatureCookie.setSecure(isSecure);
         signatureCookie.setPath("/");
-        signatureCookie.setDomain(jwtCookieConfig.getDomain());
+        signatureCookie.setDomain(jwtCookieConfigurationProperties.getDomain());
 
         var payloadCookie = new Cookie(
-            jwtCookieConfig.getPayloadCookieName(),
+            jwtCookieConfigurationProperties.getPayloadCookieName(),
             String.join(".", jwtParts[0], jwtParts[1]));
-        payloadCookie.setMaxAge((int) jwtCookieConfig.getPayloadCookieDuration().toMillis());
+        payloadCookie.setMaxAge((int) jwtCookieConfigurationProperties.getPayloadCookieDuration().toMillis());
         payloadCookie.setHttpOnly(false);
         payloadCookie.setSecure(isSecure);
-        payloadCookie.setDomain(jwtCookieConfig.getDomain());
+        payloadCookie.setDomain(jwtCookieConfigurationProperties.getDomain());
         payloadCookie.setPath("/");
 
         return Set.of(signatureCookie, payloadCookie);

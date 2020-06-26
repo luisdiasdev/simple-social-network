@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Data
 @Configuration
 @ConfigurationProperties("app.security.jwt.cookie")
-public class JwtCookieConfig {
+public class JwtCookieConfigurationProperties {
 
     private static final String DEFAULT_PAYLOAD_COOKIE_NAME = "payload";
     private static final String DEFAULT_SIGNATURE_COOKIE_NAME = "signature";

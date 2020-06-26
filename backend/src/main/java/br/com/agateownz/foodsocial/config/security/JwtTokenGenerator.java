@@ -16,10 +16,10 @@ import org.springframework.stereotype.Component;
 public class JwtTokenGenerator {
 
     @Autowired
-    private JwtConfig jwtConfig;
+    private JwtConfigurationProperties jwtConfigurationProperties;
 
     @Autowired
-    private JwtCookieConfig jwtCookieConfig;
+    private JwtCookieConfigurationProperties jwtCookieConfigurationProperties;
 
     public String generateForUser(User user) {
         var roles = user.getAuthorities()
@@ -29,11 +29,11 @@ public class JwtTokenGenerator {
 
         return Jwts.builder()
             .signWith(
-                Keys.hmacShaKeyFor(jwtConfig.getSecret().getBytes()),
-                SignatureAlgorithm.forName(jwtConfig.getSigningAlgorithm()))
-            .setHeaderParam("typ", jwtConfig.getTokenType())
-            .setIssuer(jwtConfig.getTokenIssuer())
-            .setAudience(jwtConfig.getTokenAudience())
+                Keys.hmacShaKeyFor(jwtConfigurationProperties.getSecret().getBytes()),
+                SignatureAlgorithm.forName(jwtConfigurationProperties.getSigningAlgorithm()))
+            .setHeaderParam("typ", jwtConfigurationProperties.getTokenType())
+            .setIssuer(jwtConfigurationProperties.getTokenIssuer())
+            .setAudience(jwtConfigurationProperties.getTokenAudience())
             .setSubject(user.getUsername())
             .setExpiration(this.getExpirationDate())
             .claim("rol", roles)
@@ -44,7 +44,7 @@ public class JwtTokenGenerator {
     private Date getExpirationDate() {
         return Date.from(
             LocalDateTime.now()
-                .plusSeconds(jwtCookieConfig.getPayloadCookieDuration().toSeconds())
+                .plusSeconds(jwtCookieConfigurationProperties.getPayloadCookieDuration().toSeconds())
                 .atZone(ZoneId.systemDefault())
                 .toInstant()
         );
