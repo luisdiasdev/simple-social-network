@@ -1,6 +1,6 @@
 package br.com.agateownz.foodsocial.modules.user.controller;
 
-import br.com.agateownz.foodsocial.modules.user.dto.request.UserCreateRequest;
+import br.com.agateownz.foodsocial.modules.user.dto.request.CreateUserRequest;
 import br.com.agateownz.foodsocial.modules.user.dto.response.CreateUserResponse;
 import br.com.agateownz.foodsocial.modules.user.dto.response.DefaultUserResponse;
 import br.com.agateownz.foodsocial.modules.user.dto.response.MentionUserResponse;
@@ -34,7 +34,7 @@ public class UserController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CreateUserResponse save(@Valid @RequestBody UserCreateRequest request) {
+    public CreateUserResponse save(@Valid @RequestBody CreateUserRequest request) {
         return userService.save(request);
     }
 

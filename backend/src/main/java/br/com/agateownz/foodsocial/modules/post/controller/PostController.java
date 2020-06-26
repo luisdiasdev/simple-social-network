@@ -1,7 +1,7 @@
 package br.com.agateownz.foodsocial.modules.post.controller;
 
 import br.com.agateownz.foodsocial.modules.content.dto.response.ContentResponse;
-import br.com.agateownz.foodsocial.modules.post.dto.request.PostCreateRequest;
+import br.com.agateownz.foodsocial.modules.post.dto.request.CreatePostRequest;
 import br.com.agateownz.foodsocial.modules.post.dto.response.PostResponse;
 import br.com.agateownz.foodsocial.modules.post.service.PostService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -46,7 +46,7 @@ public class PostController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PostResponse save(@RequestBody PostCreateRequest request) {
+    public PostResponse save(@RequestBody CreatePostRequest request) {
         return postService.save(request);
     }
 

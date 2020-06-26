@@ -1,6 +1,5 @@
 package br.com.agateownz.foodsocial.modules.user.dto.request;
 
-
 import java.util.Optional;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -8,10 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserProfileModifyRequest {
+public class ModifyUserProfileRequest {
 
     @Size(max = 60)
     private String displayName;

@@ -1,6 +1,6 @@
 package br.com.agateownz.foodsocial.modules.user;
 
-import br.com.agateownz.foodsocial.modules.user.dto.request.UserCreateRequest;
+import br.com.agateownz.foodsocial.modules.user.dto.request.CreateUserRequest;
 
 public class UserMockBuilders {
 
@@ -13,28 +13,28 @@ public class UserMockBuilders {
 
     public static class UserCreateRequestMock {
 
-        public static UserCreateRequest valid() {
-            return new UserCreateRequest(VALID_USERNAME, VALID_EMAIL, VALID_PASSWORD);
+        public static CreateUserRequest valid() {
+            return new CreateUserRequest(VALID_USERNAME, VALID_EMAIL, VALID_PASSWORD);
         }
 
-        public static UserCreateRequest invalidUsername() {
-            return new UserCreateRequest(INVALID_USERNAME, VALID_EMAIL, VALID_PASSWORD);
+        public static CreateUserRequest invalidUsername() {
+            return new CreateUserRequest(INVALID_USERNAME, VALID_EMAIL, VALID_PASSWORD);
         }
 
-        public static UserCreateRequest nullUsername() {
-            return new UserCreateRequest(null, VALID_EMAIL, VALID_PASSWORD);
+        public static CreateUserRequest nullUsername() {
+            return new CreateUserRequest(null, VALID_EMAIL, VALID_PASSWORD);
         }
 
-        public static UserCreateRequest invalidEmail() {
-            return new UserCreateRequest(VALID_USERNAME, INVALID_EMAIL, VALID_PASSWORD);
+        public static CreateUserRequest invalidEmail() {
+            return new CreateUserRequest(VALID_USERNAME, INVALID_EMAIL, VALID_PASSWORD);
         }
 
-        public static UserCreateRequest nullEmail() {
-            return new UserCreateRequest(VALID_USERNAME, null, VALID_PASSWORD);
+        public static CreateUserRequest nullEmail() {
+            return new CreateUserRequest(VALID_USERNAME, null, VALID_PASSWORD);
         }
 
-        public static UserCreateRequest nullPassword() {
-            return new UserCreateRequest(VALID_USERNAME, VALID_EMAIL, null);
+        public static CreateUserRequest nullPassword() {
+            return new CreateUserRequest(VALID_USERNAME, VALID_EMAIL, null);
         }
     }
 

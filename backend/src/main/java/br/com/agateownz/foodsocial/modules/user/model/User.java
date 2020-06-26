@@ -1,7 +1,7 @@
 package br.com.agateownz.foodsocial.modules.user.model;
 
 import br.com.agateownz.foodsocial.modules.shared.model.EntityWithTimestamp;
-import br.com.agateownz.foodsocial.modules.user.dto.request.UserCreateRequest;
+import br.com.agateownz.foodsocial.modules.user.dto.request.CreateUserRequest;
 import br.com.agateownz.foodsocial.modules.user.dto.response.MentionUserResponse;
 import java.util.Collection;
 import java.util.List;
@@ -101,7 +101,7 @@ public class User extends EntityWithTimestamp implements UserDetails {
         this.id = id;
     }
 
-    public static User of(UserCreateRequest request) {
+    public static User of(CreateUserRequest request) {
         var user = new User();
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());

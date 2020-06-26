@@ -13,5 +13,5 @@ public enum MentionType {
     @JsonProperty("#")
     HASHTAG("#");
 
-    private String mentionCharacter;
+    private final String mentionCharacter;
 }

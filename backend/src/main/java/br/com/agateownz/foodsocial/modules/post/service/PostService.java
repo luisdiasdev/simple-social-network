@@ -5,7 +5,7 @@ import br.com.agateownz.foodsocial.modules.content.enums.ContentDiscriminator;
 import br.com.agateownz.foodsocial.modules.content.service.ContentService;
 import br.com.agateownz.foodsocial.modules.hashtag.service.HashtagService;
 import br.com.agateownz.foodsocial.modules.post.dto.Mention;
-import br.com.agateownz.foodsocial.modules.post.dto.request.PostCreateRequest;
+import br.com.agateownz.foodsocial.modules.post.dto.request.CreatePostRequest;
 import br.com.agateownz.foodsocial.modules.post.dto.response.PostResponse;
 import br.com.agateownz.foodsocial.modules.post.exceptions.PostValidationException;
 import br.com.agateownz.foodsocial.modules.post.mapper.PostMapper;
@@ -56,7 +56,7 @@ public class PostService {
     }
 
     @Transactional
-    public PostResponse save(PostCreateRequest request) {
+    public PostResponse save(CreatePostRequest request) {
         validateMessage(request);
         validatePictures(request);
         var user = userService.findById(authenticationService.getAuthenticatedUserId());
@@ -111,14 +111,14 @@ public class PostService {
         }
     }
 
-    private void validatePictures(PostCreateRequest request) {
+    private void validatePictures(CreatePostRequest request) {
         if (!CollectionUtils.isEmpty(request.getPictures())
             && !contentService.isContentsOwnedByCurrentUser(request.getPictures())) {
             throw new PostValidationException("Can only use your own pictures");
         }
     }
 
-    private void validateMessage(PostCreateRequest request) {
+    private void validateMessage(CreatePostRequest request) {
         if (!isValidMessage(request.getMessage())) {
             throw new PostValidationException("Post message is invalid");
         }

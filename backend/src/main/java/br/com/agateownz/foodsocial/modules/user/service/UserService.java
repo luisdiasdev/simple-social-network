@@ -1,7 +1,7 @@
 package br.com.agateownz.foodsocial.modules.user.service;
 
 import br.com.agateownz.foodsocial.modules.shared.service.AuthenticationService;
-import br.com.agateownz.foodsocial.modules.user.dto.request.UserCreateRequest;
+import br.com.agateownz.foodsocial.modules.user.dto.request.CreateUserRequest;
 import br.com.agateownz.foodsocial.modules.user.dto.response.CreateUserResponse;
 import br.com.agateownz.foodsocial.modules.user.dto.response.DefaultUserResponse;
 import br.com.agateownz.foodsocial.modules.user.dto.response.MentionUserResponse;
@@ -29,7 +29,7 @@ public class UserService {
     private AuthenticationService authenticationService;
 
     @Transactional
-    public CreateUserResponse save(UserCreateRequest request) {
+    public CreateUserResponse save(CreateUserRequest request) {
         var user = User.of(request);
         user.encodePassword(passwordEncoder);
         var savedUser = userRepository.save(user);

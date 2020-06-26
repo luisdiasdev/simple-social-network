@@ -9,11 +9,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserCreateRequest {
+public class CreateUserRequest {
 
     @Size(min = 4, max = 30)
     @NotNull

@@ -5,7 +5,7 @@ import br.com.agateownz.foodsocial.modules.content.enums.ContentDiscriminator;
 import br.com.agateownz.foodsocial.modules.content.service.ContentService;
 import br.com.agateownz.foodsocial.modules.shared.service.AuthenticationService;
 import br.com.agateownz.foodsocial.modules.shared.service.MaterialColorGeneratorService;
-import br.com.agateownz.foodsocial.modules.user.dto.request.UserProfileModifyRequest;
+import br.com.agateownz.foodsocial.modules.user.dto.request.ModifyUserProfileRequest;
 import br.com.agateownz.foodsocial.modules.user.dto.response.UserProfileResponse;
 import br.com.agateownz.foodsocial.modules.user.dto.response.UserProfileWithPictureResponse;
 import br.com.agateownz.foodsocial.modules.user.mapper.UserProfileMapper;
@@ -36,14 +36,14 @@ public class UserProfileService {
     private UserProfileMapper userProfileMapper;
 
     @Transactional
-    public UserProfileResponse save(UserProfileModifyRequest request) {
+    public UserProfileResponse save(ModifyUserProfileRequest request) {
         var user = userService.findById(authenticationService.getAuthenticatedUserId());
         var profile = createOrUpdateUserProfile(request, user);
         var savedProfile = userProfileRepository.save(profile);
         return userProfileMapper.userProfileToUserProfileResponse(savedProfile);
     }
 
-    private UserProfile createOrUpdateUserProfile(UserProfileModifyRequest request, User user) {
+    private UserProfile createOrUpdateUserProfile(ModifyUserProfileRequest request, User user) {
         return userProfileRepository.findByUserId(authenticationService.getAuthenticatedUserId())
             .map(profile -> profile.update(request))
             .orElseGet(() -> UserProfile.of(

@@ -1,6 +1,5 @@
 package br.com.agateownz.foodsocial.modules.post.dto.request;
 
-
 import java.util.List;
 import java.util.Map;
 import javax.validation.constraints.NotBlank;
@@ -10,10 +9,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostCreateRequest {
+public class CreatePostRequest {
 
     @NotNull
     @NotBlank

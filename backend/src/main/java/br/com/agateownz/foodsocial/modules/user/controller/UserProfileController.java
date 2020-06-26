@@ -2,7 +2,7 @@ package br.com.agateownz.foodsocial.modules.user.controller;
 
 import br.com.agateownz.foodsocial.modules.content.dto.response.ContentResponse;
 import br.com.agateownz.foodsocial.modules.shared.service.StorageService;
-import br.com.agateownz.foodsocial.modules.user.dto.request.UserProfileModifyRequest;
+import br.com.agateownz.foodsocial.modules.user.dto.request.ModifyUserProfileRequest;
 import br.com.agateownz.foodsocial.modules.user.dto.response.UserProfileResponse;
 import br.com.agateownz.foodsocial.modules.user.dto.response.UserProfileWithPictureResponse;
 import br.com.agateownz.foodsocial.modules.user.service.UserProfileService;
@@ -48,7 +48,7 @@ public class UserProfileController {
      */
     @PostMapping
     @PutMapping
-    public UserProfileResponse modify(@RequestBody UserProfileModifyRequest request) {
+    public UserProfileResponse modify(@RequestBody ModifyUserProfileRequest request) {
         return userProfileService.save(request);
     }
 

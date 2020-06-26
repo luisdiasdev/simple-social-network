@@ -2,7 +2,7 @@ package br.com.agateownz.foodsocial.modules.user.model;
 
 import br.com.agateownz.foodsocial.modules.content.model.Content;
 import br.com.agateownz.foodsocial.modules.shared.model.EntityWithTimestamp;
-import br.com.agateownz.foodsocial.modules.user.dto.request.UserProfileModifyRequest;
+import br.com.agateownz.foodsocial.modules.user.dto.request.ModifyUserProfileRequest;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import javax.persistence.*;
@@ -40,7 +40,7 @@ public class UserProfile extends EntityWithTimestamp {
     @Column(length = 10, nullable = false)
     private String avatarColor;
 
-    public static UserProfile of(UserProfileModifyRequest request,
+    public static UserProfile of(ModifyUserProfileRequest request,
         User user,
         String avatarColor) {
         var profile = new UserProfile();
@@ -50,7 +50,7 @@ public class UserProfile extends EntityWithTimestamp {
         return profile;
     }
 
-    private static void populateRequestFields(UserProfile profile, UserProfileModifyRequest request) {
+    private static void populateRequestFields(UserProfile profile, ModifyUserProfileRequest request) {
         request.getDisplayName()
             .ifPresent(profile::setDisplayName);
         request.getWebsite()
@@ -59,7 +59,7 @@ public class UserProfile extends EntityWithTimestamp {
             .ifPresent(profile::setBio);
     }
 
-    public UserProfile update(UserProfileModifyRequest request) {
+    public UserProfile update(ModifyUserProfileRequest request) {
         populateRequestFields(this, request);
         return this;
     }
