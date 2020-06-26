@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class DefaultUserResponse {
 
     private Long id;
