@@ -1,7 +1,6 @@
 package br.com.agateownz.foodsocial.modules.user.controller;
 
 import br.com.agateownz.foodsocial.modules.content.dto.response.ContentResponse;
-import br.com.agateownz.foodsocial.modules.shared.service.StorageService;
 import br.com.agateownz.foodsocial.modules.user.dto.request.ModifyUserProfileRequest;
 import br.com.agateownz.foodsocial.modules.user.dto.response.UserProfileResponse;
 import br.com.agateownz.foodsocial.modules.user.dto.response.UserProfileWithPictureResponse;
@@ -9,6 +8,7 @@ import br.com.agateownz.foodsocial.modules.user.service.UserProfileService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +27,6 @@ public class UserProfileController {
 
     @Autowired
     private UserProfileService userProfileService;
-    @Autowired
-    private StorageService storageService;
 
     /**
      * Gets the current logged user's profile
@@ -46,9 +44,8 @@ public class UserProfileController {
      * @param request The user profile information
      * @return The updated user profile
      */
-    @PostMapping
-    @PutMapping
-    public UserProfileResponse modify(@RequestBody ModifyUserProfileRequest request) {
+    @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT})
+    public UserProfileResponse modify(@Valid @RequestBody ModifyUserProfileRequest request) {
         return userProfileService.save(request);
     }
 
