@@ -27,7 +27,7 @@ jobs:
       working-directory: backend
       run: mvn -B verify
     - name: Codecov report
-      uses: codecov/codecov-actions@v1
+      uses: codecov/codecov-action@v1.0.7
       with:
         fail_ci_if_error: true
 
