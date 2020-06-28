@@ -41,6 +41,6 @@ jobs:
     - uses: akhileshns/heroku-deploy@v3.0.4
       with:
         heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-        heroku_app_name: 'agateownz-social-network-app'
+        heroku_app_name: ${{ secrets.HEROKU_APP_NAME_FRONTEND }}
         heroku_email: ${{ secrets.HEROKU_EMAIL }}
         appdir: 'frontend'
