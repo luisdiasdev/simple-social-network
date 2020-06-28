@@ -4,10 +4,13 @@ import br.com.agateownz.foodsocial.modules.user.dto.request.CreateUserRequest;
 import br.com.agateownz.foodsocial.modules.user.dto.response.CreateUserResponse;
 import br.com.agateownz.foodsocial.modules.user.dto.response.DefaultUserResponse;
 import br.com.agateownz.foodsocial.modules.user.dto.response.MentionUserResponse;
+import br.com.agateownz.foodsocial.modules.user.model.User;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
+
 
 public class UserMockBuilders {
 
@@ -19,9 +22,27 @@ public class UserMockBuilders {
     public static final String VALID_CREATED_AT_STRING = "25-06-2020 15:30:00";
     public static final String VALID_SEARCH = "existinguser";
 
+    public static final Long INVALID_ID = 101L;
     public static final String INVALID_USERNAME = "a";
     public static final String INVALID_EMAIL = "this-is-not-a-valid-email";
     public static final String INVALID_SEARCH = "nonexistinguser";
+
+    public static class UserMock {
+
+        public static User valid() {
+            return valid(new Random().nextLong());
+        }
+
+        public static User valid(Long id) {
+            var user = User.builder()
+                .id(id)
+                .email(VALID_EMAIL)
+                .username(VALID_USERNAME)
+                .build();
+            user.setCreatedAt(VALID_CREATED_AT);
+            return user;
+        }
+    }
 
     public static class CreateUserRequestMock {
 
@@ -73,7 +94,7 @@ public class UserMockBuilders {
                 .collect(Collectors.toList());
         }
 
-        private static MentionUserResponse single(Long id) {
+        public static MentionUserResponse single(Long id) {
             return new MentionUserResponse(
                 id,
                 "username-" + id,
