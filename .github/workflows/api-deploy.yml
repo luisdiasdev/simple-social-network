@@ -16,9 +16,6 @@ jobs:
     - uses: actions/setup-java@v1
       with:
         java-version: '11'
-    - name: Verify
-      working-directory: backend
-      run: mvn -B verify
     - name: Cache local Maven repository
       uses: actions/cache@v2
       with:
@@ -26,6 +23,13 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('backend/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
+    - name: Verify
+      working-directory: backend
+      run: mvn -B verify
+    - name: Codecov report
+      uses: codecov/codecov-actions@v1
+      with:
+        fail_ci_if_error: true
 
   build:
     name: Deploy
