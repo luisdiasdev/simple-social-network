@@ -23,7 +23,7 @@ export default function Brand() {
         <Avatar className={classes.avatar}>C</Avatar>
       </Grid>
       <Grid item>
-        <Typography component="h3" variant="h4">The Circle</Typography>
+        <Typography component="h3" variant="h4">Food Social</Typography>
       </Grid>
     </Grid>
   );

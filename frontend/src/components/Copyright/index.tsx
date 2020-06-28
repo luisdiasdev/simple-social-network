@@ -6,7 +6,7 @@ export default function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="/#">
-        The Circle Inc.
+        Luis Gustavo de Oliveira Dias
       </Link>
       {' '}
       {new Date().getFullYear()}

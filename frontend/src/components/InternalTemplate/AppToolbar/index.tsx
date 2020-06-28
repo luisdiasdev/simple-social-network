@@ -110,7 +110,7 @@ export default function AppToolbar({ profile, onMenuClick }: AppToolbarProps) {
               className={classes.title}
             >
               <Link href={Paths.FEED} color="inherit" underline="none">
-                The Circle
+                Food Social
               </Link>
             </Typography>
             <IconButton

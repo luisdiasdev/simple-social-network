@@ -30,7 +30,7 @@ export default function Form() {
     setSubmitting(true);
     try {
       await publicApi.post('/users', form);
-      enqueueSnackbar('Congratulations! Now you\'re a part of The Circle!', {
+      enqueueSnackbar('Congratulations! Now you\'re a part of Food Social!', {
         variant: 'success',
       });
       history.push('/');
