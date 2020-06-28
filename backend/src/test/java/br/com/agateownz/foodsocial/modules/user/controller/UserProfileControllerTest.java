@@ -3,35 +3,28 @@ package br.com.agateownz.foodsocial.modules.user.controller;
 import br.com.agateownz.foodsocial.config.ApplicationProfiles;
 import br.com.agateownz.foodsocial.modules.shared.annotations.MockMvcContextConfiguration;
 import br.com.agateownz.foodsocial.modules.shared.controller.AbstractControllerTest;
-import br.com.agateownz.foodsocial.modules.user.UserProfileMockBuilders.ModifyUserProfileRequestMock;
-import br.com.agateownz.foodsocial.modules.user.UserProfileMockBuilders.UserProfileWithPictureResponseMock;
+import br.com.agateownz.foodsocial.modules.user.UserProfileMockBuilders.*;
 import br.com.agateownz.foodsocial.modules.user.dto.request.ModifyUserProfileRequest;
 import br.com.agateownz.foodsocial.modules.user.dto.response.UserProfileResponse;
 import br.com.agateownz.foodsocial.modules.user.service.UserProfileService;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 
 import static br.com.agateownz.foodsocial.modules.user.UserProfileMockBuilders.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -96,7 +89,6 @@ class UserProfileControllerTest extends AbstractControllerTest {
             mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJsonString(ModifyUserProfileRequestMock.valid())))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.displayName", is(VALID_CHANGED_DISPLAY_NAME)))
                 .andExpect(jsonPath("$.website", is(VALID_CHANGED_WEBSITE)))
@@ -153,7 +145,6 @@ class UserProfileControllerTest extends AbstractControllerTest {
             mockMvc.perform(put(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJsonString(ModifyUserProfileRequestMock.valid())))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.displayName", is(VALID_CHANGED_DISPLAY_NAME)))
                 .andExpect(jsonPath("$.website", is(VALID_CHANGED_WEBSITE)))
@@ -166,7 +157,6 @@ class UserProfileControllerTest extends AbstractControllerTest {
             mockMvc.perform(put(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJsonString(ModifyUserProfileRequestMock.invalidDisplayName())))
-                .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$[0].message", is("displayName size must be between 0 and 60")));
         }

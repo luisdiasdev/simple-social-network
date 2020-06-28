@@ -7,6 +7,7 @@ import br.com.agateownz.foodsocial.modules.post.service.PostService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,6 +35,7 @@ public class PostController {
      * @return The post with the given id
      */
     @GetMapping("{id}")
+    @ApiResponse(responseCode = "404", description = "post not found")
     public PostResponse get(@PathVariable Long id) {
         return postService.getById(id);
     }
@@ -46,7 +48,7 @@ public class PostController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PostResponse save(@RequestBody CreatePostRequest request) {
+    public PostResponse save(@Valid @RequestBody CreatePostRequest request) {
         return postService.save(request);
     }
 
@@ -68,6 +70,7 @@ public class PostController {
      */
     @DeleteMapping("picture/{uuid}")
     @ApiResponse(responseCode = "204", description = "post picture removed")
+    @ApiResponse(responseCode = "404", description = "post picture not found")
     public ResponseEntity<?> deletePostPicture(@PathVariable String uuid) {
         postService.removePostPicture(uuid);
         return ResponseEntity.noContent().build();

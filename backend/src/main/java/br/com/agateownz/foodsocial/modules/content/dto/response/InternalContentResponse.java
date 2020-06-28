@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class InternalContentResponse {
+
     private final String contentType;
     private final Long contentLength;
     private final StoreObject storeObject;

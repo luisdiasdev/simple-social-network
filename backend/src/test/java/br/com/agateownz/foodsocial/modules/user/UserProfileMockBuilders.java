@@ -3,8 +3,9 @@ package br.com.agateownz.foodsocial.modules.user;
 import br.com.agateownz.foodsocial.modules.content.dto.response.ContentResponse;
 import br.com.agateownz.foodsocial.modules.user.dto.request.ModifyUserProfileRequest;
 import br.com.agateownz.foodsocial.modules.user.dto.response.UserProfileWithPictureResponse;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.mock.web.MockMultipartFile;
+
+import static br.com.agateownz.foodsocial.modules.shared.MultipartFileMockBuilders.mockMultipartFile;
 
 public class UserProfileMockBuilders {
 
@@ -22,10 +23,7 @@ public class UserProfileMockBuilders {
     public static final String INVALID_CHANGED_BIO = VALID_CHANGED_BIO.repeat(10);
 
     public static MockMultipartFile profilePictureMultipartFile() throws Exception {
-        return new MockMultipartFile(
-            "file",
-            new ClassPathResource("data/image.png").getInputStream()
-        );
+        return mockMultipartFile("file");
     }
 
     public static ContentResponse profilePictureResponse() {

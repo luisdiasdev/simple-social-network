@@ -8,9 +8,9 @@ import org.springframework.test.web.servlet.MockMvc;
 public abstract class AbstractControllerTest {
 
     @Autowired
-    private ObjectMapper objectMapper;
-    @Autowired
     protected MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     protected String toJsonString(Object object) throws JsonProcessingException {
         return objectMapper.writeValueAsString(object);

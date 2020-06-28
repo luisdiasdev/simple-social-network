@@ -7,7 +7,6 @@ import br.com.agateownz.foodsocial.modules.user.dto.response.MentionUserResponse
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 public class UserMockBuilders {
@@ -59,12 +58,14 @@ public class UserMockBuilders {
     }
 
     public static class UserResponseMock {
+
         public static DefaultUserResponse valid() {
             return new DefaultUserResponse(VALID_ID, VALID_USERNAME, VALID_CREATED_AT);
         }
     }
 
     public static class MentionUserResponseMock {
+
         public static List<MentionUserResponse> list() {
             return LongStream.range(0, 5)
                 .boxed()

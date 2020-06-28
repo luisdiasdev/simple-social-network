@@ -7,7 +7,6 @@ import br.com.agateownz.foodsocial.modules.shared.exception.EntityNotFoundExcept
 import br.com.agateownz.foodsocial.modules.shared.exception.UnauthorizedException;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;

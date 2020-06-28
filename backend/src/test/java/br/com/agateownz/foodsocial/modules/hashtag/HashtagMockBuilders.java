@@ -2,8 +2,6 @@ package br.com.agateownz.foodsocial.modules.hashtag;
 
 import br.com.agateownz.foodsocial.modules.hashtag.dto.response.HashtagResponse;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.LongStream;
 
 public class HashtagMockBuilders {
 

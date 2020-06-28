@@ -1,12 +1,10 @@
 package br.com.agateownz.foodsocial.modules.hashtag.controller;
 
 import br.com.agateownz.foodsocial.config.ApplicationProfiles;
-import br.com.agateownz.foodsocial.modules.hashtag.HashtagMockBuilders;
 import br.com.agateownz.foodsocial.modules.hashtag.HashtagMockBuilders.HashtagResponseMock;
 import br.com.agateownz.foodsocial.modules.hashtag.service.HashtagService;
 import br.com.agateownz.foodsocial.modules.shared.annotations.MockMvcContextConfiguration;
 import br.com.agateownz.foodsocial.modules.shared.controller.AbstractControllerTest;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +13,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static br.com.agateownz.foodsocial.modules.hashtag.HashtagMockBuilders.INVALID_SEARCH;
 import static br.com.agateownz.foodsocial.modules.hashtag.HashtagMockBuilders.VALID_ID;

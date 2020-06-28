@@ -24,7 +24,6 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -56,7 +55,6 @@ class FeedControllerTest extends AbstractControllerTest {
     public void getFeedSuccess() throws Exception {
         mockMvc.perform(get(ENDPOINT).param("page", VALID_PAGE.toString()))
             .andExpect(status().isOk())
-            .andDo(print())
             .andExpect(jsonPath("$.totalElements", is(VALID_PAGE_TOTAL_ELEMENTS)))
             .andExpect(jsonPath("$.number", is(VALID_PAGE)))
             .andExpect(jsonPath("$.content", hasSize(10)));

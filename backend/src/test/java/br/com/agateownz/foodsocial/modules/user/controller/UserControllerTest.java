@@ -28,7 +28,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -88,7 +87,6 @@ class UserControllerTest extends AbstractControllerTest {
             mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJsonString(CreateUserRequestMock.nullUsername())))
-                .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$[0].message", is("username must not be null")));
         }
@@ -134,7 +132,6 @@ class UserControllerTest extends AbstractControllerTest {
         public void findUserByNameTestSuccess() throws Exception {
             mockMvc.perform(get(ENDPOINT + "/{username}", VALID_USERNAME))
                 .andExpect(status().isOk())
-                .andDo(print())
                 .andExpect(jsonPath("$.id", is(VALID_ID.intValue())))
                 .andExpect(jsonPath("$.username", is(VALID_USERNAME)))
                 .andExpect(jsonPath("$.createdAt", is(VALID_CREATED_AT_STRING)));
@@ -143,7 +140,7 @@ class UserControllerTest extends AbstractControllerTest {
         @DisplayName("should return 403 if not authenticated")
         @Test
         @WithAnonymousUser
-        public void findUserByNameTestFailAuthentication() throws Exception{
+        public void findUserByNameTestFailAuthentication() throws Exception {
             mockMvc.perform(get(ENDPOINT + "/{username}", VALID_USERNAME))
                 .andExpect(status().isForbidden());
         }
@@ -166,7 +163,6 @@ class UserControllerTest extends AbstractControllerTest {
         public void findUsersToMentionTestSuccess() throws Exception {
             mockMvc.perform(get(ENDPOINT + "/name")
                 .param("search", VALID_SEARCH))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()));
         }
@@ -177,7 +173,6 @@ class UserControllerTest extends AbstractControllerTest {
         public void findUsersToMentionTestAuthentication() throws Exception {
             mockMvc.perform(get(ENDPOINT + "/name")
                 .param("search", VALID_SEARCH))
-                .andDo(print())
                 .andExpect(status().isForbidden());
         }
 
@@ -186,7 +181,6 @@ class UserControllerTest extends AbstractControllerTest {
         public void findUsersToMentionTestEmpty() throws Exception {
             mockMvc.perform(get(ENDPOINT + "/name")
                 .param("search", INVALID_SEARCH))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", empty()));
         }

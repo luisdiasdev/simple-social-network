@@ -5,7 +5,6 @@ import br.com.agateownz.foodsocial.modules.post.dto.response.FeedResponse;
 import br.com.agateownz.foodsocial.modules.user.dto.response.UserProfileWithPictureResponse;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
