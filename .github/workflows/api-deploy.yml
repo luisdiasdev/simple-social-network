@@ -9,7 +9,7 @@ on:
 
 jobs:
   verify:
-    name: "Run Tests"
+    name: "Run Checkstyle & Tests"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -19,6 +19,13 @@ jobs:
     - name: Verify
       working-directory: backend
       run: mvn -B verify
+    - name: Cache local Maven repository
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('backend/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
 
   build:
     name: Deploy
