@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - 'backend/**'
+      - '.github/workflows/api-deploy.yml'
 
 jobs:
   verify:
