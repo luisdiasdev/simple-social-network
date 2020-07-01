@@ -1,0 +1,44 @@
+version: '3'
+
+services: 
+  database:
+    image: postgres:alpine
+    environment: 
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: socialnetworkdb
+      LANG: pt_BR.utf-8
+    ports: 
+      - "5433:5432"
+    command: localedef -i pt_BR -c -f UTF-8 -A /usr/share/locale/locale.alias pt_BR.utf-8
+
+  social-network-api:
+    image: social-network-api
+    build: ./backend
+    environment:
+      - SERVER_PORT=9091
+      - JDBC_DATABASE_URL=jdbc:postgresql://database:5432/socialnetworkdb
+      - JDBC_DATABASE_USERNAME=postgres
+      - JDBC_DATABASE_PASSWORD=postgres
+      - AWS_REGION
+      - AWS_ACCESS_KEY
+      - AWS_SECRET_KEY
+      - STORAGE_BUCKET_NAME
+    ports: 
+      - "9091:9091"
+    links: 
+      - postgres
+    depends_on: 
+      - postgres
+    
+  social-network:
+    image: social-network
+    build: ./frontend
+    environment: 
+      - API_HOST=social-network-api
+      - API_PORT=9091
+    ports: 
+      - "8000:80"
+    links: 
+      - social-network-api
+    depends_on: 
+      - social-network-api

@@ -54,7 +54,7 @@ app:
       token-issuer: food-social
       token-audience: food-social-network
       cookie:
-        domain: ${JWT_COOKIE_DOMAIN}
+        domain: ${JWT_COOKIE_DOMAIN:localhost}
 
 cloud:
   aws:
