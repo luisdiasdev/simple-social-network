@@ -1,8 +1,12 @@
 package br.com.agateownz.foodsocial.modules.post.model;
 
 import br.com.agateownz.foodsocial.modules.content.model.Content;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import java.io.Serializable;
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

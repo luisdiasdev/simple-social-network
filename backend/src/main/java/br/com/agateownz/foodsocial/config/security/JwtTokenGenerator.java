@@ -27,18 +27,20 @@ public class JwtTokenGenerator {
             .map(GrantedAuthority::getAuthority)
             .collect(Collectors.toList());
 
+        var signingKey = Keys.hmacShaKeyFor(jwtConfigurationProperties.getSecret().getBytes());
+
         return Jwts.builder()
-            .signWith(
-                Keys.hmacShaKeyFor(jwtConfigurationProperties.getSecret().getBytes()),
-                SignatureAlgorithm.forName(jwtConfigurationProperties.getSigningAlgorithm()))
-            .setHeaderParam("typ", jwtConfigurationProperties.getTokenType())
-            .setIssuer(jwtConfigurationProperties.getTokenIssuer())
-            .setAudience(jwtConfigurationProperties.getTokenAudience())
-            .setSubject(user.getUsername())
-            .setExpiration(this.getExpirationDate())
-            .claim("rol", roles)
-            .claim("userId", user.getId())
-            .compact();
+                .signWith(signingKey)
+                .header()
+                .type(jwtConfigurationProperties.getTokenType())
+                .and()
+                .issuer(jwtConfigurationProperties.getTokenIssuer())
+                .audience().add(jwtConfigurationProperties.getTokenAudience()).and()
+                .subject(user.getUsername())
+                .expiration(this.getExpirationDate())
+                .claim("rol", roles)
+                .claim("userId", user.getId())
+                .compact();
     }
 
     private Date getExpirationDate() {

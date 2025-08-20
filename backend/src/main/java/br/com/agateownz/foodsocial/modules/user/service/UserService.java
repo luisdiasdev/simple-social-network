@@ -8,8 +8,8 @@ import br.com.agateownz.foodsocial.modules.user.dto.response.MentionUserResponse
 import br.com.agateownz.foodsocial.modules.user.mapper.UserMapper;
 import br.com.agateownz.foodsocial.modules.user.model.User;
 import br.com.agateownz.foodsocial.modules.user.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import java.util.List;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

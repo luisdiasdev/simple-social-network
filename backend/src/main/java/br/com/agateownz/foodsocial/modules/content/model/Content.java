@@ -3,7 +3,7 @@ package br.com.agateownz.foodsocial.modules.content.model;
 import br.com.agateownz.foodsocial.modules.content.enums.ContentDiscriminator;
 import br.com.agateownz.foodsocial.modules.shared.model.EntityWithTimestamp;
 import br.com.agateownz.foodsocial.modules.user.model.User;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Data

@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -52,13 +52,13 @@ class UserServiceTest {
     @Autowired
     private UserMapper userMapper;
 
-    @MockBean
+    @MockitoBean
     private UserRepository userRepository;
 
-    @MockBean
+    @MockitoBean
     private PasswordEncoder passwordEncoder;
 
-    @MockBean
+    @MockitoBean
     private AuthenticationService authenticationService;
 
     @BeforeEach
@@ -117,7 +117,7 @@ class UserServiceTest {
 
     @DisplayName("findByUsername")
     @Nested
-    class findByUserNameTest {
+    class FindByUserNameTest {
 
         @DisplayName("should return the user response if exists")
         @Test
@@ -146,7 +146,7 @@ class UserServiceTest {
 
     @DisplayName("findById")
     @Nested
-    class findByIdTest {
+    class FindByIdTest {
 
         @DisplayName("should return the user if exists")
         @Test
@@ -169,7 +169,7 @@ class UserServiceTest {
 
     @DisplayName("findByIds")
     @Nested
-    class findByIdsTest {
+    class FindByIdsTest {
 
         @DisplayName("should return list of users with the given ids")
         @Test
@@ -201,7 +201,7 @@ class UserServiceTest {
 
     @DisplayName("findUsersToMention")
     @Nested
-    class findUsersToMentionTest {
+    class FindUsersToMentionTest {
 
         @DisplayName("should return list of users that can be mentioned")
         @Test

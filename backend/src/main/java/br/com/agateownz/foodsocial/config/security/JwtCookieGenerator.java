@@ -1,7 +1,7 @@
 package br.com.agateownz.foodsocial.config.security;
 
+import jakarta.servlet.http.Cookie;
 import java.util.Set;
-import javax.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

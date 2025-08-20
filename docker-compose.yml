@@ -1,15 +1,14 @@
-version: '3'
-
 services: 
   database:
-    image: postgres:alpine
+    build:
+      context: ./environments/docker/postgres
+      dockerfile: Dockerfile
     environment: 
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: socialnetworkdb
       LANG: pt_BR.utf-8
     ports: 
       - "5433:5432"
-    command: localedef -i pt_BR -c -f UTF-8 -A /usr/share/locale/locale.alias pt_BR.utf-8
 
   social-network-api:
     image: social-network-api

@@ -19,7 +19,8 @@ import org.springframework.context.annotation.Import;
     JwtCookieGenerator.class,
     JwtTokenGenerator.class,
     JwtCookieParser.class,
-    JwtTokenParser.class
+    JwtTokenParser.class,
+    TestSecurityConfiguration.class
 })
 @AutoConfigureMockMvc(printOnlyOnFailure = false, webDriverEnabled = false)
 @AutoConfigureJsonTesters

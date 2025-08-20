@@ -12,7 +12,7 @@ import br.com.agateownz.foodsocial.modules.user.mapper.UserProfileMapper;
 import br.com.agateownz.foodsocial.modules.user.model.User;
 import br.com.agateownz.foodsocial.modules.user.model.UserProfile;
 import br.com.agateownz.foodsocial.modules.user.repository.UserProfileRepository;
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

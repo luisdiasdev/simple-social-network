@@ -3,12 +3,6 @@ package br.com.agateownz.foodsocial.modules.shared.service.storage;
 import br.com.agateownz.foodsocial.config.storage.StorageConfig;
 import br.com.agateownz.foodsocial.modules.shared.dto.StoreObject;
 import br.com.agateownz.foodsocial.modules.shared.service.StorageService;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.DeleteObjectRequest;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +11,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetUrlRequest;
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 @Slf4j
 @Service
@@ -25,7 +26,7 @@ import org.springframework.stereotype.Service;
 @Profile("!test")
 public class AmazonStorageService implements StorageService {
 
-    private final AmazonS3 s3Client;
+    private final S3Client s3Client;
     private final StorageConfig storageConfig;
 
     @Override
@@ -44,12 +45,20 @@ public class AmazonStorageService implements StorageService {
 
     @Override
     public void delete(String filePath) {
-        s3Client.deleteObject(new DeleteObjectRequest(storageConfig.getBucketName(), filePath));
+        DeleteObjectRequest deleteRequest = DeleteObjectRequest.builder()
+                .bucket(storageConfig.getBucketName())
+                .key(filePath)
+                .build();
+        s3Client.deleteObject(deleteRequest);
     }
 
     @Override
     public StoreObject get(String filePath) {
-        var object = s3Client.getObject(storageConfig.getBucketName(), filePath);
+        GetObjectRequest getRequest = GetObjectRequest.builder()
+                .bucket(storageConfig.getBucketName())
+                .key(filePath)
+                .build();
+        var object = s3Client.getObject(getRequest);
         return new AmazonStoreObject(object);
     }
 
@@ -58,20 +67,21 @@ public class AmazonStorageService implements StorageService {
         String contentType,
         byte[] fileBuffer,
         boolean isPublic) {
-        var objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentLength(fileBuffer.length);
-        objectMetadata.setContentType(contentType);
-        var request = new PutObjectRequest(
-            storageConfig.getBucketName(),
-            fileName,
-            new ByteArrayInputStream(fileBuffer),
-            objectMetadata);
+
+        var requestBuilder = PutObjectRequest.builder()
+                .bucket(storageConfig.getBucketName())
+                .key(fileName)
+                .contentType(contentType)
+                .contentLength((long) fileBuffer.length);
 
         if (isPublic) {
-            request.withCannedAcl(CannedAccessControlList.PublicRead);
+            requestBuilder.acl(ObjectCannedACL.PUBLIC_READ);
         }
 
-        s3Client.putObject(request);
+        var request = requestBuilder.build();
+        var requestBody = RequestBody.fromBytes(fileBuffer);
+
+        s3Client.putObject(request, requestBody);
         log.warn("Stored file: " + fileName + " of type: " + contentType);
     }
 
@@ -80,6 +90,10 @@ public class AmazonStorageService implements StorageService {
     }
 
     private URL getFileUrl(String fileName) {
-        return s3Client.getUrl(storageConfig.getBucketName(), fileName);
+        GetUrlRequest getUrlRequest = GetUrlRequest.builder()
+                .bucket(storageConfig.getBucketName())
+                .key(fileName)
+                .build();
+        return s3Client.utilities().getUrl(getUrlRequest);
     }
 }

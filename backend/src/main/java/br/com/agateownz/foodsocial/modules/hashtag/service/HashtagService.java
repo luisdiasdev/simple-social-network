@@ -4,11 +4,11 @@ import br.com.agateownz.foodsocial.modules.hashtag.dto.response.HashtagResponse;
 import br.com.agateownz.foodsocial.modules.hashtag.mapper.HashtagMapper;
 import br.com.agateownz.foodsocial.modules.hashtag.model.Hashtag;
 import br.com.agateownz.foodsocial.modules.hashtag.repository.HashtagRepository;
+import jakarta.transaction.Transactional;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

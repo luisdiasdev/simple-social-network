@@ -15,6 +15,28 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     List<User> findByIdIn(List<Long> ids);
 
-    @Query(nativeQuery = true)
+    @Query(value = """
+        SELECT cu.id as id, 
+               cu.username as "value", 
+               cup.display_name as displayName, 
+               cup.avatar_color as avatarColor, 
+               cup.user_profile_image_id as imageUri 
+        FROM fs_user cu 
+        INNER JOIN fs_user_profile cup ON cu.id = cup.user_id 
+        WHERE cu.id IN (
+            SELECT f1.follower_id 
+            FROM fs_user_follower f1 
+            INNER JOIN fs_user_profile p ON f1.follower_id = p.user_id 
+            INNER JOIN fs_user cu1 ON f1.follower_id = cu1.id 
+            WHERE f1.user_id = ?1 AND (p.display_name LIKE ?2 OR cu1.username LIKE ?2)
+            UNION ALL
+            SELECT f2.following_id 
+            FROM fs_user_following f2 
+            INNER JOIN fs_user_profile p ON f2.following_id = p.user_id 
+            INNER JOIN fs_user cu2 ON f2.following_id = cu2.id 
+            WHERE f2.user_id = ?1 AND (p.display_name LIKE ?2 OR cu2.username LIKE ?2)
+        ) 
+        ORDER BY cu.username ASC
+        """, nativeQuery = true)
     List<MentionUserResponse> findUsersToMention(Long userId, String search);
 }

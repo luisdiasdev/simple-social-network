@@ -14,7 +14,6 @@ spring:
 
   jpa:
     show-sql: true
-    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
     hibernate:
       ddl-auto: none
     properties:
@@ -37,33 +36,26 @@ spring:
     web:
       pageable:
         default-page-size: 10
+  cloud:
+    aws:
+      credentials:
+        accessKey: ${AWS_ACCESS_KEY}
+        secretKey: ${AWS_SECRET_KEY}
+      region:
+        static: ${AWS_REGION}
 
 security:
   encoding-strength: 256
 
-# TODO: Remove this when AWS S3 fully implemented
 app:
   storage:
-    path: /opt/storage/food-social/
     bucketName: ${STORAGE_BUCKET_NAME}
 
   security:
     jwt:
-      secret: ${JWT_SECRET:KFEiqnPK8B+GW3zo93H0LGrdAdzejEs8I6KawgpG/VP6rqOEaooGTKdHqgG3hirXI/i7PKmzxKGd1GAgL6AqcqloCqEINPgJDRVakpoCY7Dpqm0dnru0vz2JnRpwBs/1N4Ghljhxx06j/twy6BmJUwqv8Mi+YY4jVWOZTyLIaPvOtDeyiTTkIspJhhLD+cLxSkxKhhD6w5gXQ0qiZXwpzkxr4qBHNDBxkpCOTw==}
+      secret: ${JWT_SECRET}
       signing-algorithm: HS512
       token-issuer: food-social
       token-audience: food-social-network
       cookie:
         domain: ${JWT_COOKIE_DOMAIN:localhost}
-
-cloud:
-  aws:
-    stack:
-      auto: false
-    credentials:
-      instanceProfile: false
-      accessKey: ${AWS_ACCESS_KEY}
-      secretKey: ${AWS_SECRET_KEY}
-    region:
-      auto: false
-      static: ${AWS_REGION}

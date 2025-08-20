@@ -1,6 +1,6 @@
 package br.com.agateownz.foodsocial.config.storage;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +9,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties("app.storage")
 public class StorageConfig {
-
-    private String path;
 
     @NotBlank
     private String bucketName;

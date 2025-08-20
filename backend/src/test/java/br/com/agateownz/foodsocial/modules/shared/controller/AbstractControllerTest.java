@@ -9,6 +9,7 @@ public abstract class AbstractControllerTest {
 
     @Autowired
     protected MockMvc mockMvc;
+
     @Autowired
     private ObjectMapper objectMapper;
 
