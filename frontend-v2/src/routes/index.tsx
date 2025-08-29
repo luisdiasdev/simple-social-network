@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import HomeImg from '../assets/images/home.jpg';
 import Brand from '../components/Brand';
 import Copyright from '../components/Copyright';
+import LoginForm from '../components/Forms/Login';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
@@ -29,6 +30,7 @@ function RouteComponent() {
           <Typography component="h1" variant="h6">
             Sign in
           </Typography>
+          <LoginForm />
         </Box>
         <Grid container sx={{ justifyContent: 'center', width: '100%' }}>
           <Grid sx={{ margin: [3, 4], alignSelf: 'flex-end' }}>
