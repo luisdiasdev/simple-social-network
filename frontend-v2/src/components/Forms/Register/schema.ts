@@ -10,9 +10,10 @@ export interface RegisterFormData {
 const schema = yup.object().shape({
   username: yup.string().min(4).max(30).required(),
   password: yup.string().min(8).required(),
-  confirmPassword: yup.string()
+  confirmPassword: yup
+    .string()
     .min(8)
-    .oneOf([yup.ref('password')], 'passwords doesn\'t match')
+    .oneOf([yup.ref('password')], "passwords doesn't match")
     .required(),
   email: yup.string().email().required(),
 });
