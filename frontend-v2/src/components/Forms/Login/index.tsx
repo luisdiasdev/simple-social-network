@@ -6,6 +6,7 @@ import { Box, Grid, Button, Checkbox, FormControlLabel, Link, TextField } from '
 import { AuthApi } from '../../../api';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
+import { useAuth } from '../../../contexts/AuthContext';
 
 export default function LoginForm() {
   const [submitting, setSubmitting] = useState(false);
@@ -15,23 +16,29 @@ export default function LoginForm() {
     register,
     formState: { errors },
   } = useForm<LoginData>();
+  const { dispatch } = useAuth();
 
   const onSubmit = async (data: LoginData) => {
     setSubmitting(true);
+    dispatch({ type: 'AUTH_START' });
+
     try {
       await AuthApi.login(data);
       const payloadCookie = Cookies.get('payload');
       if (payloadCookie) {
         const jwtPayload = jwtDecode<{ userId: number }>(payloadCookie);
-        // dispatch(authenticationSuccess({
-        //   userId: jwtPayload.userId,
-        //   username: form.username,
-        // }));
-        console.log(jwtPayload);
+        dispatch({
+          type: 'AUTH_SUCCESS',
+          payload: {
+            userId: jwtPayload.userId,
+            username: data.username,
+          },
+        });
       }
     } catch (error: unknown) {
       console.log(error);
       enqueueSnackbar('Login failed', { variant: 'error' });
+      dispatch({ type: 'AUTH_FAILED' });
     } finally {
       setSubmitting(false);
     }

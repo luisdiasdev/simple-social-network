@@ -7,6 +7,7 @@ import { theme } from './theme';
 import { SnackbarProvider } from 'notistack';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { routeTree } from './routeTree.gen';
+import { AuthProvider } from './contexts/AuthContext';
 
 const router = createRouter({ routeTree });
 
@@ -38,7 +39,9 @@ function App() {
               horizontal: 'right',
             }}
           >
-            <RouterProvider router={router} />
+            <AuthProvider>
+              <RouterProvider router={router} />
+            </AuthProvider>
           </SnackbarProvider>
         </LocalizationProvider>
       </ThemeProvider>
