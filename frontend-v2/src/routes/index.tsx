@@ -1,11 +1,14 @@
-import { createFileRoute } from '@tanstack/react-router';
-import LoginForm from '../components/Forms/Login';
-import AuthLayout from '../components/AuthLayout';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
-  component: RouteComponent,
+  beforeLoad: () => {
+    if (document.cookie.includes('payload')) {
+      // eslint-disable-next-line @typescript-eslint/only-throw-error
+      throw redirect({ to: '/dashboard' })
+    } else {
+      // eslint-disable-next-line @typescript-eslint/only-throw-error
+      throw redirect({ to: '/login' });
+    }
+  }
 });
 
-function RouteComponent() {
-  return <AuthLayout title="Sign In" form={<LoginForm />} />;
-}
