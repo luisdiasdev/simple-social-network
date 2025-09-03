@@ -1,14 +1,20 @@
-import { createContext, useContext, useEffect, useReducer, type ReactNode } from "react";
-import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
+import { createContext, useCallback, useContext, useEffect, useReducer, type ReactNode } from 'react';
+import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
 
 export type AuthState = {
-    userId: number | null;
-    username: string | null;
-    isAuthenticated: boolean;
-    loading: boolean;
-    initialized: boolean;
-}
+  userId: number | null;
+  username: string | null;
+  isAuthenticated: boolean;
+  loading: boolean;
+  initialized: boolean;
+};
+
+export type AuthContextType = {
+  state: AuthState;
+  dispatch: React.Dispatch<AuthAction>;
+  hasValidAuthCookie: () => boolean;
+};
 
 type AuthAction =
   | { type: 'AUTH_START' }
@@ -24,8 +30,19 @@ const initialState: AuthState = {
   username: null,
   loading: true,
   initialized: false,
-
 };
+
+function hasValidAuthCookie(): boolean {
+  try {
+    const token = Cookies.get('payload');
+    if (!token) return false;
+    const { exp } = jwtDecode<{ exp?: number }>(token);
+    if (!exp) return true; // no exp means treat as valid
+    return exp * 1000 > Date.now();
+  } catch {
+    return false;
+  }
+}
 
 function authReducer(state: AuthState, action: AuthAction): AuthState {
   switch (action.type) {
@@ -54,7 +71,7 @@ function authReducer(state: AuthState, action: AuthAction): AuthState {
         ...state,
         isAuthenticated: true,
         userId: action.payload.userId,
-        username: action.payload.username || null,
+        username: action.payload.username ?? null,
         loading: false,
         initialized: true,
       };
@@ -77,23 +94,21 @@ function authReducer(state: AuthState, action: AuthAction): AuthState {
   }
 }
 
-const AuthContext = createContext<{
-  state: AuthState;
-  dispatch: React.Dispatch<AuthAction>;
-} | null>(null);
+const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(authReducer, initialState);
+  const hasValidAuthCookieFn = useCallback(hasValidAuthCookie, []);
 
   useEffect(() => {
     const initializeAuth = () => {
       try {
         const payloadCookie = Cookies.get('payload');
-        
+
         if (payloadCookie) {
           // Decode the JWT to get user info
-          const jwtPayload = jwtDecode<{ 
-            userId: number; 
+          const jwtPayload = jwtDecode<{
+            userId: number;
             username?: string;
             exp?: number; // Expiration time
           }>(payloadCookie);
@@ -127,12 +142,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     initializeAuth();
-  }, [])
-  return (
-    <AuthContext.Provider value={{ state, dispatch }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  }, []);
+  return <AuthContext.Provider value={{ state, dispatch, hasValidAuthCookie: hasValidAuthCookieFn }}>{children}</AuthContext.Provider>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components

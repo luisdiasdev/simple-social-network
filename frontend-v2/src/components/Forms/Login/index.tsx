@@ -7,6 +7,7 @@ import { AuthApi } from '../../../api';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
 import { useAuth } from '../../../contexts/AuthContext';
+import { useNavigate } from '@tanstack/react-router';
 
 export default function LoginForm() {
   const [submitting, setSubmitting] = useState(false);
@@ -17,6 +18,7 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm<LoginData>();
   const { dispatch } = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit = async (data: LoginData) => {
     setSubmitting(true);
@@ -34,6 +36,7 @@ export default function LoginForm() {
             username: data.username,
           },
         });
+        await navigate({ to: '/dashboard'});
       }
     } catch (error: unknown) {
       console.log(error);

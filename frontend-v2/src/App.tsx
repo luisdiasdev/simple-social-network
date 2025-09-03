@@ -7,14 +7,23 @@ import { theme } from './theme';
 import { SnackbarProvider } from 'notistack';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { routeTree } from './routeTree.gen';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import type { AuthContextType } from './contexts/AuthContext';
+import { useMemo } from 'react';
 
-const router = createRouter({ routeTree });
+// Create a typed router factory so we can pass dynamic context from React
+export type RouterContext = {
+  auth: AuthContextType;
+}
+
+function makeRouter(context: RouterContext) {
+  return createRouter({ routeTree, context });
+}
 
 declare module '@tanstack/react-router' {
   // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface Register {
-    router: typeof router;
+    router: ReturnType<typeof makeRouter>;
   }
 }
 
@@ -28,6 +37,18 @@ const queryClient = new QueryClient({
   },
 });
 
+function RouterWithAuth() {
+  const authContext = useAuth();
+
+  // Create the router once; it will hold a mutable context reference
+  const router = useMemo(() => makeRouter({ auth: authContext }), [authContext]);
+
+  // Always keep the router's context in sync with the latest auth state
+  router.update({ context: { auth: authContext } });
+
+  return <RouterProvider router={router} />;
+}
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -40,7 +61,7 @@ function App() {
             }}
           >
             <AuthProvider>
-              <RouterProvider router={router} />
+              <RouterWithAuth />
             </AuthProvider>
           </SnackbarProvider>
         </LocalizationProvider>
