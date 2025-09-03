@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import type { LoginData } from '../../../api/types';
 import { Box, Grid, Button, Checkbox, FormControlLabel, Link, TextField } from '@mui/material';
 import { AuthApi } from '../../../api';
+import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
 
 export default function LoginForm() {
   const [submitting, setSubmitting] = useState(false);
@@ -17,11 +19,18 @@ export default function LoginForm() {
   const onSubmit = async (data: LoginData) => {
     setSubmitting(true);
     try {
-      const response = await AuthApi.login(data)
-      document.cookie = `payload=${response.data.token}`;
-      enqueueSnackbar('Login successful', { variant: 'success' });
+      await AuthApi.login(data);
+      const payloadCookie = Cookies.get('payload');
+      if (payloadCookie) {
+        const jwtPayload = jwtDecode<{ userId: number }>(payloadCookie);
+        // dispatch(authenticationSuccess({
+        //   userId: jwtPayload.userId,
+        //   username: form.username,
+        // }));
+        console.log(jwtPayload);
+      }
     } catch (error: unknown) {
-      console.log(error)
+      console.log(error);
       enqueueSnackbar('Login failed', { variant: 'error' });
     } finally {
       setSubmitting(false);
