@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import type { LoginData } from '../../../api/types';
 import { Box, Grid, Button, Checkbox, FormControlLabel, Link, TextField } from '@mui/material';
+import { AuthApi } from '../../../api';
 
 export default function LoginForm() {
   const [submitting, setSubmitting] = useState(false);
@@ -13,15 +14,14 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm<LoginData>();
 
-  const onSubmit = (_: LoginData) => {
+  const onSubmit = async (data: LoginData) => {
     setSubmitting(true);
     try {
-      // const response = await AuthApi.login(data);
-      // document.cookie = `payload=${response.token}`;
-      // dispatch(authenticationSuccess(response.user));
+      const response = await AuthApi.login(data)
+      document.cookie = `payload=${response.data.token}`;
       enqueueSnackbar('Login successful', { variant: 'success' });
-    } catch (error) {
-      // dispatch(authenticationFailed());
+    } catch (error: unknown) {
+      console.log(error)
       enqueueSnackbar('Login failed', { variant: 'error' });
     } finally {
       setSubmitting(false);
@@ -42,7 +42,6 @@ export default function LoginForm() {
         fullWidth
         label="Username"
         autoComplete="username"
-        autoFocus
         {...register('username')} // Updated register syntax
         error={Boolean(errors.username)}
         helperText={errors.username?.message}

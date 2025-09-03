@@ -3,26 +3,31 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Box, Button, TextField } from '@mui/material';
 import type { RegisterFormData } from './schema';
+import { publicApi } from '../../../api';
+import { useNavigate } from '@tanstack/react-router';
 
 export default function RegisterForm() {
   const [submitting, setSubmitting] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm<RegisterFormData>();
 
-  const onSubmit = async (_: RegisterFormData) => {
+  const onSubmit = async (form: RegisterFormData) => {
     setSubmitting(true);
     try {
-      // const response = await AuthApi.login(data);
-      // document.cookie = `payload=${response.token}`;
-      // dispatch(authenticationSuccess(response.user));
-      enqueueSnackbar('Login successful', { variant: 'success' });
-    } catch (error) {
-      // dispatch(authenticationFailed());
-      enqueueSnackbar('Login failed', { variant: 'error' });
+      await publicApi.post('/users', form);
+
+      enqueueSnackbar("Congratulations! Now you're a part of Food Social!", {
+        variant: 'success',
+      });
+      await navigate({ to: '/' });
+    } catch (error: unknown) {
+      console.error(error);
+      enqueueSnackbar('Registration failed', { variant: 'error' });
     } finally {
       setSubmitting(false);
     }
@@ -42,10 +47,9 @@ export default function RegisterForm() {
         fullWidth
         label="Username"
         autoComplete="username"
-        autoFocus
         {...register('username')} // Updated register syntax
         error={Boolean(errors.username)}
-        helperText={errors?.username?.message}
+        helperText={errors.username?.message}
         disabled={submitting}
       />
       <TextField
@@ -57,7 +61,7 @@ export default function RegisterForm() {
         autoComplete="email"
         {...register('email')} // Updated register syntax
         error={Boolean(errors.email)}
-        helperText={errors?.email?.message}
+        helperText={errors.email?.message}
         disabled={submitting}
       />
       <TextField
@@ -70,7 +74,7 @@ export default function RegisterForm() {
         autoComplete="new-password"
         {...register('password')} // Updated register syntax
         error={Boolean(errors.password)}
-        helperText={errors?.password?.message}
+        helperText={errors.password?.message}
         disabled={submitting}
       />
       <TextField
@@ -83,7 +87,7 @@ export default function RegisterForm() {
         autoComplete="new-password"
         {...register('confirmPassword')} // Updated register syntax
         error={Boolean(errors.confirmPassword)}
-        helperText={errors?.confirmPassword?.message}
+        helperText={errors.confirmPassword?.message}
         disabled={submitting}
       />
       <Button
