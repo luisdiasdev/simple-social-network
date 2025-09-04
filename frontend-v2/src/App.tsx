@@ -14,7 +14,7 @@ import { useMemo } from 'react';
 // Create a typed router factory so we can pass dynamic context from React
 export type RouterContext = {
   auth: AuthContextType;
-}
+};
 
 function makeRouter(context: RouterContext) {
   return createRouter({ routeTree, context });

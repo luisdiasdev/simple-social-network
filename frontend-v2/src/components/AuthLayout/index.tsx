@@ -17,8 +17,7 @@ export default function AuthLayout(props: AuthLayoutProps) {
         sx={(theme) => ({
           backgroundImage: `url(${HomeImg})`,
           backgroundRepeat: 'no-repeat',
-          backgroundColor:
-            theme.palette.mode === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+          backgroundColor: theme.palette.mode === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         })}

@@ -143,7 +143,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     initializeAuth();
   }, []);
-  return <AuthContext.Provider value={{ state, dispatch, hasValidAuthCookie: hasValidAuthCookieFn }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ state, dispatch, hasValidAuthCookie: hasValidAuthCookieFn }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 // eslint-disable-next-line react-refresh/only-export-components

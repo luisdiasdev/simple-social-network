@@ -34,12 +34,7 @@ export default function RegisterForm() {
   };
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit(onSubmit)}
-      noValidate
-      sx={{ mt: 1, width: '100%' }}
-    >
+    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1, width: '100%' }}>
       <TextField
         variant="outlined"
         margin="normal"

@@ -6,6 +6,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import App from './App';
 
+// biome-ignore lint/style/noNonNullAssertion: necessary
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />

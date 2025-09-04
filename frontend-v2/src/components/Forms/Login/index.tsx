@@ -36,7 +36,7 @@ export default function LoginForm() {
             username: data.username,
           },
         });
-        await navigate({ to: '/dashboard'});
+        await navigate({ to: '/dashboard' });
       }
     } catch (error: unknown) {
       console.log(error);
@@ -48,12 +48,7 @@ export default function LoginForm() {
   };
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit(onSubmit)}
-      noValidate
-      sx={{ mt: 1, width: '100%' }}
-    >
+    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1, width: '100%' }}>
       <TextField
         variant="outlined"
         margin="normal"
