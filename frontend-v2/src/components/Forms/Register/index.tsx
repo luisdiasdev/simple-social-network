@@ -1,10 +1,10 @@
+import { Box, Button, TextField } from '@mui/material';
+import { useNavigate } from '@tanstack/react-router';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Box, Button, TextField } from '@mui/material';
-import type { RegisterFormData } from './schema';
 import { publicApi } from '../../../api';
-import { useNavigate } from '@tanstack/react-router';
+import type { RegisterFormData } from './schema';
 
 export default function RegisterForm() {
   const [submitting, setSubmitting] = useState(false);

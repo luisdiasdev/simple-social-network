@@ -1,15 +1,15 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { createRouter, RouterProvider } from '@tanstack/react-router';
-import { theme } from './theme';
-import { SnackbarProvider } from 'notistack';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { routeTree } from './routeTree.gen';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
-import type { AuthContextType } from './contexts/AuthContext';
+import { createRouter, RouterProvider } from '@tanstack/react-router';
+import { SnackbarProvider } from 'notistack';
 import { useMemo } from 'react';
+import type { AuthContextType } from './contexts/AuthContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { routeTree } from './routeTree.gen';
+import { theme } from './theme';
 
 // Create a typed router factory so we can pass dynamic context from React
 export type RouterContext = {

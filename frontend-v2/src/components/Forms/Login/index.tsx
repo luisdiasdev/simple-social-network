@@ -1,13 +1,13 @@
+import { Box, Button, Checkbox, FormControlLabel, Grid, Link, TextField } from '@mui/material';
+import { useNavigate } from '@tanstack/react-router';
+import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import type { LoginData } from '../../../api/types';
-import { Box, Grid, Button, Checkbox, FormControlLabel, Link, TextField } from '@mui/material';
 import { AuthApi } from '../../../api';
-import Cookies from 'js-cookie';
-import { jwtDecode } from 'jwt-decode';
+import type { LoginData } from '../../../api/types';
 import { useAuth } from '../../../contexts/AuthContext';
-import { useNavigate } from '@tanstack/react-router';
 
 export default function LoginForm() {
   const [submitting, setSubmitting] = useState(false);

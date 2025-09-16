@@ -1,0 +1,6 @@
+{
+    "biome.configurationPath": "./frontend-v2/biome.json",
+    "biome.suggestInstallingGlobally": false,
+    "biome.lsp.bin": "./frontend-v2/node_modules/.bin/biome",
+    "biome.requireConfiguration": true
+}

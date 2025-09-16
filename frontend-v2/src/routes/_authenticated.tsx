@@ -1,4 +1,5 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
+import InternalTemplate from '../components/InternalLayout';
 
 export const Route = createFileRoute('/_authenticated')({
   beforeLoad: ({ context }) => {
@@ -13,5 +14,9 @@ export const Route = createFileRoute('/_authenticated')({
       });
     }
   },
-  component: () => <Outlet />,
+  component: () => (
+    <InternalTemplate>
+      <Outlet />
+    </InternalTemplate>
+  ),
 });
