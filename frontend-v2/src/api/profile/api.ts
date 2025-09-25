@@ -9,17 +9,16 @@ export const getProfile = () => publicApi.get<UserProfileResponse>(ENDPOINT).the
 export const updateProfile = (form: UserProfileModifyRequest) =>
   publicApi.post<UserProfileModifyRequest>(ENDPOINT, form).then((response) => response.data);
 
-export const updateProfilePicture = (file: File) => {
+export const updateProfilePicture = async (file: File) => {
   const formData = new FormData();
   formData.set('file', file);
 
-  return publicApi
-    .post<UserProfilePictureResponse>(PICTURE_ENDPOINT, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-    .then((response) => response.data);
+  const response = await publicApi.post<UserProfilePictureResponse>(PICTURE_ENDPOINT, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response.data;
 };
 
 export const deleteProfilePicture = () => publicApi.delete(PICTURE_ENDPOINT);

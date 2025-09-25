@@ -15,6 +15,7 @@ import { styled } from '@mui/material/styles';
 import { useNavigate } from '@tanstack/react-router';
 import React, { type PropsWithChildren, useState } from 'react';
 import type { UserProfileResponse } from '../../../api/profile/types';
+import { useAuth } from '../../../contexts/AuthContext';
 import UserProfileAvatar from '../../UserProfileAvatar';
 
 const ElevationScroll: React.FC<PropsWithChildren> = ({ children }) => {
@@ -48,7 +49,7 @@ interface AppToolbarProps {
 export default function AppToolbar({ profile, onMenuClick }: AppToolbarProps) {
   const theme = useTheme();
   const navigate = useNavigate();
-  //   const dispatch = useDispatch();
+  const { dispatch } = useAuth();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const menuId = 'user-menu';
 
@@ -58,7 +59,7 @@ export default function AppToolbar({ profile, onMenuClick }: AppToolbarProps) {
   const handleUserMenuOpen = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
 
   const handleLogOut = () => {
-    // dispatch(logout());
+    dispatch({ type: 'LOGOUT' });
     navigate({ to: '/' });
   };
 
