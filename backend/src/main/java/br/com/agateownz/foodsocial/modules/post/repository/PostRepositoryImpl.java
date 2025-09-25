@@ -8,6 +8,7 @@ import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import java.util.Collections;
 import java.util.List;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.data.domain.Page;
@@ -34,26 +35,43 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
     public Page<Post> findPostsForFeed(Long userId, Pageable pageable) {
         var queryFactory = new JPAQueryFactory(entityManager);
 
-        var postUser = new QUser("postUser");
-        var postUserProfile = new QUserProfile("postUserProfile");
-        var postUserProfileImage = new QContent("postUserProfileImage");
-        var postMentionUser = new QUser("postMentionUser");
-        var postMentionUserProfile = new QUserProfile("postMentionUserProfile");
-        var postMentionUserProfileImage = new QContent("postMentionUserProfileImage");
-
         var subQuery = JPAExpressions.select(userFollowing.id.following.id)
             .from(userFollowing)
             .where(userFollowing.id.user.id.eq(userId));
 
+        // First query: Get total count
         var totalElements = queryFactory
             .select(post.countDistinct())
             .from(post)
-            .where(post.user.id.in(subQuery))
+            .where(post.user.id.in(subQuery).and(post.active.eq(true)))
             .fetchOne();
 
         if (ObjectUtils.isEmpty(totalElements)) {
             totalElements = 0L;
         }
+
+        // Second query: Get paginated Post IDs only (no fetch joins)
+        List<Long> postIds = queryFactory
+            .select(post.id)
+            .from(post)
+            .where(post.user.id.in(subQuery).and(post.active.eq(true)))
+            .offset(pageable.getOffset())
+            .limit(pageable.getPageSize())
+            .orderBy(post.createdAt.desc())
+            .fetch();
+
+        if (postIds.isEmpty()) {
+            return new PageImpl<>(
+                Collections.emptyList(),
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()),
+                totalElements
+            );
+        }
+
+        // Third query: Fetch full data for the paginated posts with all joins
+        var postMentionUser = new QUser("postMentionUser");
+        var postMentionUserProfile = new QUserProfile("postMentionUserProfile");
+        var postMentionUserProfileImage = new QContent("postMentionUserProfileImage");
 
         List<Post> pageContent = queryFactory
             .select(post)
@@ -69,13 +87,8 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
             .leftJoin(postHashtag.id.hashtag, hashtag1).fetchJoin()
             .leftJoin(post.pictures, postContent).fetchJoin()
             .leftJoin(postContent.id.content, content).fetchJoin()
-            .leftJoin(post.user, postUser).fetchJoin()
-            .leftJoin(postUser.userProfile, postUserProfile).fetchJoin()
-            .leftJoin(postUserProfile.image, postUserProfileImage).fetchJoin()
-            .where(post.user.id.in(subQuery).and(post.active.eq(true)))
-            .offset(pageable.getOffset())
-            .limit(pageable.getPageSize())
-            .orderBy(post.createdAt.desc())
+            .where(post.id.in(postIds))
+            .orderBy(post.createdAt.desc()) // Maintain the same ordering
             .fetch();
 
         return new PageImpl<>(

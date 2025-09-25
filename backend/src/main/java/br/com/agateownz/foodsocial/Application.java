@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.data.web.config.EnableSpringDataWebSupport.PageSerializationMode;
 
 @OpenAPIDefinition(
     info = @Info(
@@ -25,6 +27,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
     type = SecuritySchemeType.HTTP,
     in = SecuritySchemeIn.COOKIE,
     paramName = "signature")
+@EnableSpringDataWebSupport(pageSerializationMode = PageSerializationMode.VIA_DTO)
 @SpringBootApplication
 public class Application {
 
