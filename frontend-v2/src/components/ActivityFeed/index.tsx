@@ -14,7 +14,7 @@ export default function FeedPage() {
   return (
     <Box>
       <Grid container direction="row" justifyContent="center" alignItems="center">
-        <Grid container size={12} direction="column">
+        <Grid size={12} direction="column">
           <Typography variant="h5" component="h1" align="center">
             Welcome to the Feed!
           </Typography>
@@ -22,14 +22,15 @@ export default function FeedPage() {
             Scroll down to see what other people are sharing or share your point of view!
           </Typography>
         </Grid>
-        <Grid container justifyContent="center">
-          <Grid
-            size={{ xs: 12, lg: 6 }}
-            sx={{
-              alignSelf: 'stretch',
-              padding: 1,
-            }}
-          >
+        <Grid
+          container
+          size={12}
+          justifyContent="center"
+          sx={{
+            padding: 1,
+          }}
+        >
+          <Grid size={{ xs: 12, lg: 6 }}>
             <PostEditor profile={profile} />
           </Grid>
         </Grid>
