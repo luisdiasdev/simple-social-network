@@ -227,6 +227,7 @@
 				</dependencies>
 				<executions>
 					<execution>
+						<?m2e execute onConfiguration,onIncremental?>
 						<id>verify-style</id>
 						<phase>process-classes</phase>
 						<goals>

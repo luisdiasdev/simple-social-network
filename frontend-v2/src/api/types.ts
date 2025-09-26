@@ -5,8 +5,10 @@ export type LoginData = {
 
 export interface Page<T> {
   content: T[];
-  number: number;
-  size: number;
-  totalPages: number;
-  totalElements: number;
+  page: {
+    size: number;
+    number: number;
+    totalPages: number;
+    totalElements: number;
+  }
 }

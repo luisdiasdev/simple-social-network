@@ -42,18 +42,18 @@ export default function FeedPage() {
           }}
         >
           <InfiniteScroll
-            dataLength={data?.pages?.reduce((total, page) => total + (page?.content?.length || 0), 0) || 0}
+            dataLength={data?.pages?.reduce((total, page) => total + (page?.page?.size || 0), 0) || 0}
             next={fetchNextPage}
             hasMore={hasNextPage || false}
             loader={<CircularProgress />}
           >
             {data?.pages?.map((page) => (
-              <Fragment key={page.number}>
+              <Fragment key={page.page.number}>
                 {page?.content?.map((f) => (
                   <Post
                     key={f.post.id}
                     id={f.post.id}
-                    title={f.user.displayName}
+                    title={f.user?.displayName}
                     date={parseISO(f.post.createdAt)}
                     message={f.post.message}
                     pictures={f.post.pictures}

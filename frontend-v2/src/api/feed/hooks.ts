@@ -9,8 +9,8 @@ export const useFeed = () =>
       return data;
     },
     getNextPageParam: (lastPage) => {
-      const hasMore = lastPage.number < lastPage.totalPages - 1;
-      return hasMore ? lastPage.number + 1 : undefined;
+      const hasMore = lastPage.page.number < lastPage.page.totalPages - 1;
+      return hasMore ? lastPage.page.number + 1 : undefined;
     },
     initialPageParam: 0,
   });

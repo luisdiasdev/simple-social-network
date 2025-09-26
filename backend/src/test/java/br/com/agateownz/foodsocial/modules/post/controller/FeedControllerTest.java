@@ -17,6 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static br.com.agateownz.foodsocial.modules.post.FeedMockBuilders.EMPTY_PAGE;
 import static br.com.agateownz.foodsocial.modules.post.FeedMockBuilders.VALID_PAGE;
+import static br.com.agateownz.foodsocial.modules.post.FeedMockBuilders.VALID_PAGE_SIZE;
 import static br.com.agateownz.foodsocial.modules.post.FeedMockBuilders.VALID_PAGE_TOTAL_ELEMENTS;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
@@ -53,10 +54,10 @@ class FeedControllerTest extends AbstractControllerTest {
     @DisplayName("GET /feed?page= should return feed content if authenticated")
     @Test
     public void getFeedSuccess() throws Exception {
-        mockMvc.perform(get(ENDPOINT).param("page", VALID_PAGE.toString()))
+        mockMvc.perform(get(ENDPOINT).param("page", VALID_PAGE.toString()).param("size", VALID_PAGE_SIZE.toString()))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.totalElements", is(VALID_PAGE_TOTAL_ELEMENTS)))
-            .andExpect(jsonPath("$.number", is(VALID_PAGE)))
+            .andExpect(jsonPath("$.page.totalElements", is(VALID_PAGE_TOTAL_ELEMENTS)))
+            .andExpect(jsonPath("$.page.number", is(VALID_PAGE)))
             .andExpect(jsonPath("$.content", hasSize(10)));
     }
 
@@ -65,8 +66,8 @@ class FeedControllerTest extends AbstractControllerTest {
     public void getFeedEmpty() throws Exception {
         mockMvc.perform(get(ENDPOINT).param("page", EMPTY_PAGE.toString()))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.totalElements", is(VALID_PAGE_TOTAL_ELEMENTS)))
-            .andExpect(jsonPath("$.number", is(EMPTY_PAGE)))
+            .andExpect(jsonPath("$.page.totalElements", is(VALID_PAGE_TOTAL_ELEMENTS)))
+            .andExpect(jsonPath("$.page.number", is(EMPTY_PAGE)))
             .andExpect(jsonPath("$.content", empty()));
     }
 

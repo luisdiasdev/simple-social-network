@@ -15,6 +15,7 @@ public class FeedMockBuilders {
     public static final Integer VALID_PAGE = 1;
     public static final Integer VALID_PAGE_TOTAL_ELEMENTS = 1500;
     public static final Integer EMPTY_PAGE = 15;
+    public static final Integer VALID_PAGE_SIZE = 10;
 
 
     private static final Long INITIAL_POST_ID = 150L;
