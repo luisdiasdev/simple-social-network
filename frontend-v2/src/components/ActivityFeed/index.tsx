@@ -14,7 +14,7 @@ export default function FeedPage() {
   return (
     <Box>
       <Grid container direction="row" justifyContent="center" alignItems="center">
-        <Grid size={{ lg: 12 }}>
+        <Grid container size={12} direction="column">
           <Typography variant="h5" component="h1" align="center">
             Welcome to the Feed!
           </Typography>

@@ -1,0 +1,17 @@
+.ql-editor {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.ql-editor::before {
+  left: 0;
+}
+
+.ql-editor.ql-blank {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.ql-editor.ql-blank::before {
+  left: 0;
+}

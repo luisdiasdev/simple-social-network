@@ -2,5 +2,12 @@
     "biome.configurationPath": "./frontend-v2/biome.json",
     "biome.suggestInstallingGlobally": false,
     "biome.lsp.bin": "./frontend-v2/node_modules/.bin/biome",
-    "biome.requireConfiguration": true
+    "biome.requireConfiguration": true,
+    "[typescript]": {
+        "editor.indentSize": "tabSize",
+        "editor.tabSize": 2,
+        "editor.guides.indentation": true,
+        "typescript.preferences.quoteStyle": "double",
+        "javascript.preferences.quoteStyle": "double",
+    }
 }
