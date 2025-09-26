@@ -39,14 +39,24 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
             .from(userFollowing)
             .where(userFollowing.id.user.id.eq(userId));
 
+        var followingCount = queryFactory
+            .select(userFollowing.count())
+            .from(userFollowing)
+            .where(userFollowing.id.user.id.eq(userId))
+            .fetchOne();
+        boolean hasFollowing = followingCount != null && followingCount > 0;
+
+        var baseActive = post.active.eq(true);
+        var feedPredicate = hasFollowing ? post.user.id.in(subQuery) : post.user.id.eq(userId);
+
         // First query: Get total count
         var totalElements = queryFactory
             .select(post.countDistinct())
             .from(post)
-            .where(post.user.id.in(subQuery).and(post.active.eq(true)))
+            .where(feedPredicate.and(baseActive))
             .fetchOne();
 
-        if (ObjectUtils.isEmpty(totalElements)) {
+        if (totalElements == null) {
             totalElements = 0L;
         }
 
@@ -54,7 +64,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
         List<Long> postIds = queryFactory
             .select(post.id)
             .from(post)
-            .where(post.user.id.in(subQuery).and(post.active.eq(true)))
+            .where(feedPredicate.and(baseActive))
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
             .orderBy(post.createdAt.desc())
