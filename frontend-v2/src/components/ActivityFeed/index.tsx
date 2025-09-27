@@ -35,35 +35,39 @@ export default function FeedPage() {
           </Grid>
         </Grid>
         <Grid
-          size={{ xs: 12, lg: 6 }}
+          container
+          size={12}
+          justifyContent="center"
           sx={{
-            alignSelf: 'stretch',
             padding: 1,
           }}
         >
-          <InfiniteScroll
-            dataLength={data?.pages?.reduce((total, page) => total + (page?.page?.size || 0), 0) || 0}
-            next={fetchNextPage}
-            hasMore={hasNextPage || false}
-            loader={<CircularProgress />}
-          >
-            {data?.pages?.map((page) => (
-              <Fragment key={page.page.number}>
-                {page?.content?.map((f) => (
-                  <Post
-                    key={f.post.id}
-                    id={f.post.id}
-                    title={f.user?.displayName}
-                    date={parseISO(f.post.createdAt)}
-                    message={f.post.message}
-                    pictures={f.post.pictures}
-                    profile={f.user}
-                    userId={f.post.userId}
-                  />
-                ))}
-              </Fragment>
-            ))}
-          </InfiniteScroll>
+          <Grid size={{ xs: 12, lg: 6 }}>
+            <InfiniteScroll
+              dataLength={data?.pages?.reduce((total, page) => total + (page?.page?.size || 0), 0) || 0}
+              next={fetchNextPage}
+              hasMore={hasNextPage || false}
+              loader={<CircularProgress />}
+              style={{ display: 'flex', flexDirection: 'column', overflow: 'visible' }}
+            >
+              {data?.pages?.map((page) => (
+                <Fragment key={page.page.number}>
+                  {page?.content?.map((f) => (
+                    <Post
+                      key={f.post.id}
+                      id={f.post.id}
+                      title={f.user == null ? 'You' : f.user?.displayName}
+                      date={parseISO(f.post.createdAt)}
+                      message={f.post.message}
+                      pictures={f.post.pictures}
+                      profile={f.user == null ? profile : f.user}
+                      userId={f.post.userId}
+                    />
+                  ))}
+                </Fragment>
+              ))}
+            </InfiniteScroll>
+          </Grid>
         </Grid>
       </Grid>
     </Box>

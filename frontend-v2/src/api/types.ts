@@ -10,5 +10,5 @@ export interface Page<T> {
     number: number;
     totalPages: number;
     totalElements: number;
-  }
+  };
 }

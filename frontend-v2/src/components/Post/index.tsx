@@ -49,7 +49,8 @@ export default function Post({ id, profile, title, date, message, pictures, user
 
   const handleOptionsClose = () => setAnchorEl(null);
 
-  const enableDelete = userId === authUserId;
+  const isOwnPost = userId === authUserId;
+
   const handleDeletePost = () => deletePost.mutate(id);
 
   return (
@@ -77,7 +78,7 @@ export default function Post({ id, profile, title, date, message, pictures, user
         subheader={`${formatDistance(date, new Date())} ago`}
       />
       <PostMenu anchorEl={anchorEl} onClose={handleOptionsClose}>
-        {enableDelete ? (
+        {isOwnPost ? (
           <MenuItem onClick={handleDeletePost}>
             <ListItemIcon>
               <DeleteIcon />
